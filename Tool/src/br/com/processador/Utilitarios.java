@@ -13,6 +13,14 @@ public class Utilitarios {
 		return "0";
 	}
 	
+	public String buscaPalavraExata(String texto, String palavraChave) {
+		if (texto.toLowerCase().equals(palavraChave.toLowerCase())) {
+			return texto;
+		}
+		return "0";
+	}
+	
+	
 	/* REMOVE REPETICAO
 	 * -----------------------------------------------*/
 	public String removeRepeticao(String texto){

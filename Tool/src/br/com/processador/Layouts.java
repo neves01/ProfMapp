@@ -1,5 +1,7 @@
 package br.com.processador;
 
+import java.util.HashMap;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -8,14 +10,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class Layouts {
-	
+
 	// LAYOUTS
 	private String stFrameLayout = "0";
 	private String stLinearLayout = "0";
 	private String stTableLayout = "0";
 	private String stGridLayout = "0";
 	private String stRelativeLayout = "0";
-	
+
 	// WIDGETS
 	private String stTextView = "0";
 	private String stText = "0";
@@ -30,7 +32,7 @@ public class Layouts {
 	private String stRatingBar = "0";
 	private String stSpinner = "0";
 	private String stWebView = "0";
-	
+
 	// TEXT FIELD
 	private String stEditText = "0";
 	private String stPersonName = "0";
@@ -38,180 +40,243 @@ public class Layouts {
 	private String stPhone = "0";
 	private String stMultilineText = "0";
 	private String stNumber = "0";
-	
+
 	// CONTAINERS
 	private String stRadioGroup = "0";
 	private String stListView = "0";
 	private String stGridView = "0";
-	
+
+	// ACCESSBILITY
+	private String stEditTextHint = "0";
+
 	public String getStFrameLayout() {
 		return stFrameLayout;
 	}
+
 	public void setStFrameLayout(String stFrameLayout) {
 		this.stFrameLayout = stFrameLayout;
 	}
+
 	public String getStLinearLayout() {
 		return stLinearLayout;
 	}
+
 	public void setStLinearLayout(String stLinearLayout) {
 		this.stLinearLayout = stLinearLayout;
 	}
+
 	public String getStTableLayout() {
 		return stTableLayout;
 	}
+
 	public void setStTableLayout(String stTableLayout) {
 		this.stTableLayout = stTableLayout;
 	}
+
 	public String getStGridLayout() {
 		return stGridLayout;
 	}
+
 	public void setStGridLayout(String stGridLayout) {
 		this.stGridLayout = stGridLayout;
 	}
+
 	public String getStRelativeLayout() {
 		return stRelativeLayout;
 	}
+
 	public void setStRelativeLayout(String stRelativeLayout) {
 		this.stRelativeLayout = stRelativeLayout;
 	}
+
 	public String getStTextView() {
 		return stTextView;
 	}
+
 	public void setStTextView(String stTextView) {
 		this.stTextView = stTextView;
 	}
+
 	public String getStText() {
 		return stText;
 	}
+
 	public void setStText(String stText) {
 		this.stText = stText;
 	}
+
 	public String getStButton() {
 		return stButton;
 	}
+
 	public void setStButton(String stButton) {
 		this.stButton = stButton;
 	}
+
 	public String getStRadioButton() {
 		return stRadioButton;
 	}
+
 	public void setStRadioButton(String stRadioButton) {
 		this.stRadioButton = stRadioButton;
 	}
+
 	public String getStCheckBox() {
 		return stCheckBox;
 	}
+
 	public void setStCheckBox(String stCheckBox) {
 		this.stCheckBox = stCheckBox;
 	}
+
 	public String getStSwitch() {
 		return stSwitch;
 	}
+
 	public void setStSwitch(String stSwitch) {
 		this.stSwitch = stSwitch;
 	}
+
 	public String getStToggleButton() {
 		return stToggleButton;
 	}
+
 	public void setStToggleButton(String stToggleButton) {
 		this.stToggleButton = stToggleButton;
 	}
+
 	public String getStImageView() {
 		return stImageView;
 	}
+
 	public void setStImageView(String stImageView) {
 		this.stImageView = stImageView;
 	}
+
 	public String getStProgressBar() {
 		return stProgressBar;
 	}
+
 	public void setStProgressBar(String stProgressBar) {
 		this.stProgressBar = stProgressBar;
 	}
+
 	public String getStSeekBar() {
 		return stSeekBar;
 	}
+
 	public void setStSeekBar(String stSeekBar) {
 		this.stSeekBar = stSeekBar;
 	}
+
 	public String getStRatingBar() {
 		return stRatingBar;
 	}
+
 	public void setStRatingBar(String stRatingBar) {
 		this.stRatingBar = stRatingBar;
 	}
+
 	public String getStSpinner() {
 		return stSpinner;
 	}
+
 	public void setStSpinner(String stSpinner) {
 		this.stSpinner = stSpinner;
 	}
+
 	public String getStWebView() {
 		return stWebView;
 	}
+
 	public void setStWebView(String stWebView) {
 		this.stWebView = stWebView;
 	}
+
 	public String getStPersonName() {
 		return stPersonName;
 	}
+
 	public void setStPersonName(String stPersonName) {
 		this.stPersonName = stPersonName;
 	}
+
 	public String getStPassword() {
 		return stPassword;
 	}
+
 	public void setStPassword(String stPassword) {
 		this.stPassword = stPassword;
 	}
+
 	public String getStPhone() {
 		return stPhone;
 	}
+
 	public void setStPhone(String stPhone) {
 		this.stPhone = stPhone;
 	}
+
 	public String getStMultilineText() {
 		return stMultilineText;
 	}
+
 	public void setStMultilineText(String stMultilineText) {
 		this.stMultilineText = stMultilineText;
 	}
+
 	public String getStNumber() {
 		return stNumber;
 	}
+
 	public void setStNumber(String stNumber) {
 		this.stNumber = stNumber;
 	}
+
 	public String getStRadioGroup() {
 		return stRadioGroup;
 	}
+
 	public void setStRadioGroup(String stRadioGroup) {
 		this.stRadioGroup = stRadioGroup;
 	}
+
 	public String getStListView() {
 		return stListView;
 	}
+
 	public void setStListView(String stListView) {
 		this.stListView = stListView;
 	}
+
 	public String getStGridView() {
 		return stGridView;
 	}
+
 	public void setStGridView(String stGridView) {
 		this.stGridView = stGridView;
 	}
+
 	public String getStEditText() {
 		return stEditText;
 	}
+
 	public void setStEditText(String stEditText) {
 		this.stEditText = stEditText;
 	}
 
-	public Layouts mapearLayout(Arquivos arqs)
-	{
+	public String getStEditTextHint() {
+		return stEditTextHint;
+	}
+
+	public void setStEditTextHint(String stEditTextHint) {
+		this.stEditTextHint = stEditTextHint;
+	}
+
+	public Layouts mapearLayout(HashMap<String, Integer> map, Arquivos arqs) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		Layouts layouts = new Layouts();
-		
+
 		long dbFrameLayout = 0;
 		long dbLinearLayout = 0;
 		long dbTableLayout = 0;
@@ -240,36 +305,38 @@ public class Layouts {
 
 		long dbRadioGroup = 0;
 		long dbListView = 0;
-		long dbGridView = 0;	
+		long dbGridView = 0;
 		long dbEditText = 0;
-		
+
+		long dbEditTextHint = 0;
+		long dbTextViewLabelFor = 0;
+
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			
-			for (String stArqLayout : arqs.getArqsLayout()){
+
+			for (String stArqLayout : arqs.getArqsLayout()) {
 				Document doc = builder.parse(stArqLayout);
-				
+
 				// LAYOUT
 				NodeList nodeFrameLayout = doc.getElementsByTagName("FrameLayout");
 				dbFrameLayout += nodeFrameLayout.getLength();
-				
+
 				NodeList nodeLinearLayout = doc.getElementsByTagName("LinearLayout");
 				dbLinearLayout += nodeLinearLayout.getLength();
-				
+
 				NodeList nodeRelativeLayout = doc.getElementsByTagName("RelativeLayout");
 				dbRelativeLayout += nodeRelativeLayout.getLength();
-				
+
 				NodeList nodeTableLayout = doc.getElementsByTagName("TableLayout");
 				dbTableLayout += nodeTableLayout.getLength();
 
 				NodeList nodeGridLayout = doc.getElementsByTagName("GridLayout");
 				dbGridLayout += nodeGridLayout.getLength();
 
-				
 				// WIDGETS
 				NodeList nodeTextView = doc.getElementsByTagName("TextView");
 				dbTextView += nodeTextView.getLength();
-				
+
 				NodeList nodeImageView = doc.getElementsByTagName("ImageView");
 				dbImageView += nodeImageView.getLength();
 
@@ -302,45 +369,88 @@ public class Layouts {
 
 				NodeList nodeWebView = doc.getElementsByTagName("WebView");
 				dbWebView += nodeWebView.getLength();
-				
-				// TEXT FIELD
+
 				NodeList nodeEditText = doc.getElementsByTagName("EditText");
 				dbEditText += nodeEditText.getLength();
-				
-			    for (int j = 0; j < nodeEditText.getLength(); ++j)
-			    {
-			        Element elEditText = (Element) nodeEditText.item(j);
-			        String stInputType = elEditText.getAttribute("android:inputType");
-			        
-			        if(stInputType.equals("text"))
-			        	dbText += 1;
-			        else if(stInputType.equals("textCapWords"))
+
+				// HINT
+				for (int j = 0; j < nodeEditText.getLength(); ++j) {
+					Element elEditText = (Element) nodeEditText.item(j);
+					String stHint = elEditText.getAttribute("android:hint");
+
+					if (!stHint.equals("")) {
+						dbEditTextHint += 1;
+						
+						if (map != null && map.get("hint") == null) {
+							map.put("hint", 1);
+						} else {
+							map.put("hint", (Integer) map.get("hint") + 1);
+						}
+						
+						// System.out.println("ACHEI HINT");
+					}
+
+				}
+
+				// LABELFOR
+				for (int j = 0; j < nodeTextView.getLength(); ++j) {
+					Element elTextView = (Element) nodeTextView.item(j);
+					String stLabelFor = elTextView.getAttribute("android:labelFor");
+
+					if (!stLabelFor.equals("")) {
+						dbTextViewLabelFor += 1;
+						// System.out.println("\t----ACHEI labelFor");
+					}
+
+				}
+
+				// MINWIDTH
+				for (int j = 0; j < nodeButton.getLength(); ++j) {
+					Element elEditText = (Element) nodeButton.item(j);
+					String stHint = elEditText.getAttribute("android:minWidth");
+					String stHint2 = elEditText.getAttribute("android:minHeight");
+
+					if (!stHint.equals("") || !stHint2.equals("")) {
+						dbEditTextHint += 1;
+						// System.out.println("\t--ACHEI minWidth");
+					}
+
+				}
+
+				// TEXT FIELD
+				for (int j = 0; j < nodeEditText.getLength(); ++j) {
+					Element elEditText = (Element) nodeEditText.item(j);
+					String stInputType = elEditText.getAttribute("android:inputType");
+
+					if (stInputType.equals("text"))
+						dbText += 1;
+					else if (stInputType.equals("textCapWords"))
 						dbPersonName += 1;
-					else if(stInputType.equals("textPassword"))
+					else if (stInputType.equals("textPassword"))
 						dbPassword += 1;
-					else if(stInputType.equals("phone"))
+					else if (stInputType.equals("phone"))
 						dbPhone += 1;
-					else if(stInputType.equals("textMultiLine"))
+					else if (stInputType.equals("textMultiLine"))
 						dbMultilineText += 1;
-					else if(stInputType.equals("number"))
+					else if (stInputType.equals("number"))
 						dbNumber += 1;
-			    }
-				
+				}
+
 				// CONTAINERS
 				NodeList nodeRadioGroup = doc.getElementsByTagName("RadioGroup");
 				dbRadioGroup += nodeRadioGroup.getLength();
 
 				NodeList nodeListView = doc.getElementsByTagName("ListView");
 				dbListView += nodeListView.getLength();
-				
+
 				NodeList nodeGridView = doc.getElementsByTagName("GridView");
 				dbGridView += nodeGridView.getLength();
-				
+
 			}
 
-		} catch (Exception ex) { 
-	         ex.printStackTrace (); 
-	    }
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
 		// LAYOUT
 		layouts.setStFrameLayout("" + dbFrameLayout);
@@ -348,7 +458,7 @@ public class Layouts {
 		layouts.setStRelativeLayout("" + dbRelativeLayout);
 		layouts.setStTableLayout("" + dbTableLayout);
 		layouts.setStGridLayout("" + dbGridLayout);
-		
+
 		// WIDGETS
 		layouts.setStEditText("" + dbEditText);
 		layouts.setStTextView("" + dbTextView);
@@ -364,7 +474,7 @@ public class Layouts {
 		layouts.setStRatingBar("" + dbRatingBar);
 		layouts.setStSpinner("" + dbSpinner);
 		layouts.setStWebView("" + dbWebView);
-		
+
 		// TEXT FIELD
 		layouts.setStText("" + dbText);
 		layouts.setStPersonName("" + dbPersonName);
@@ -372,12 +482,16 @@ public class Layouts {
 		layouts.setStPhone("" + dbPhone);
 		layouts.setStMultilineText("" + dbMultilineText);
 		layouts.setStNumber("" + dbNumber);
-		
+
 		// CONTAINERS
 		layouts.setStRadioGroup("" + dbRadioGroup);
 		layouts.setStListView("" + dbListView);
 		layouts.setStGridView("" + dbGridView);
-		
+
+		// ACCESSIBILITY
+		layouts.setStEditTextHint("" + dbEditTextHint);
+
 		return layouts;
 	}
+
 }

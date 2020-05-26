@@ -19,7 +19,8 @@ public class Redator {
         FileWriter arq;
         try {
 
-            arq = new FileWriter("/home/bernardo/Repositorio/" + nomeDocumento);
+            //arq = new FileWriter("/home/bernardo/Repositorio/" + nomeDocumento);
+        	arq = new FileWriter("C:\\Users\\Henrique\\Downloads\\Repositorio\\" + nomeDocumento);
             PrintWriter gravarArq = new PrintWriter(arq);
             gravarArq.println(texto);
             arq.close();
@@ -58,7 +59,7 @@ public class Redator {
     public double contaLinhasProducao(String caminho, double linhasProducao) {
         boolean flag = true;
         try {
-           // System.out.println(caminho);
+            //System.out.println(caminho);
             FileReader arq = new FileReader(caminho);
             BufferedReader lerArq = new BufferedReader(arq);
 

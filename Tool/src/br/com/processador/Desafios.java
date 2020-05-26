@@ -182,9 +182,12 @@ public class Desafios {
 		String retorno = "";
 		String texto = "";
 
-		for (String a : arqs.getArqsJavaSRC()){
-
-			analisador.visit(analisador.mapearClasse(a), listaDeDesafios);
+		for (String a : arqs.getArqsJavaSRC()){	
+			try {
+				analisador.visit(analisador.mapearClasse(a), listaDeDesafios);	
+			} catch (Exception e) {
+				System.out.println("Exception in : " + a);
+			}
 			retorno = analisador.getEncontrados();
 			if(!retorno.equals("")){
 				texto += retorno;
@@ -224,7 +227,11 @@ public class Desafios {
 		texto = "";
 		
 		for (String a : arqs.getArqsJavaTeste()){
-			analisador.visit(analisador.mapearClasse(a), listaDeDesafios);
+			try {
+				analisador.visit(analisador.mapearClasse(a), listaDeDesafios);
+			} catch (Exception e) {
+				System.out.println("Exception in : " + a);
+			}
 			retorno = analisador.getEncontrados();
 			if(!retorno.equals("")){
 				texto += retorno;

@@ -1,6 +1,7 @@
 package br.com.processador;
 
 import java.io.FileInputStream;
+import java.util.HashMap;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -10,29 +11,32 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 public class Analisador extends VoidVisitorAdapter {
 	private String encontradosEmMetodo = "";
 	private String encontradosClasse = "";
-	
+
 	int contadorDeMetodos;
 
 	public String getEncontrados() {
 		return encontradosEmMetodo;
 	}
+
 	public void setEncontrados(String encontrados) {
 		this.encontradosEmMetodo = encontrados;
 	}
+
 	public int getContadorDeMetodos() {
 		return contadorDeMetodos;
 	}
+
 	public void setContadorDeMetodos(int contadorDeMetodos) {
 		this.contadorDeMetodos = contadorDeMetodos;
 	}
 
-	/* MAPEAR CLASSES
-	 * -----------------------------------------------*/
+	/*
+	 * MAPEAR CLASSES -----------------------------------------------
+	 */
 	public CompilationUnit mapearClasse(String caminho) throws Exception {
 		FileInputStream inNomeClasse = new FileInputStream(caminho);
-		//System.out.println(caminho);
+		// System.out.println(caminho);
 		CompilationUnit cu;
-
 
 		try {
 			cu = JavaParser.parse(inNomeClasse);
@@ -43,45 +47,60 @@ public class Analisador extends VoidVisitorAdapter {
 		return cu;
 	}
 
-	/* SENSORES - PROCURA NA ASSINATURA
-	 * -----------------------------------------------*/
-	public String visitarConteudo(CompilationUnit cuClasse, String listaDeSensores) {
+	/*
+	 * SENSORES - PROCURA NA ASSINATURA
+	 * -----------------------------------------------
+	 */
+	public String visitarConteudo(CompilationUnit cuClasse, String listaDeSensores, HashMap map) {
 		Utilitarios uti = new Utilitarios();
 		String retorno = "";
 		String sensoresEncontrados = "";
-		
+		String key = "";
+
 		for (String stSensor : listaDeSensores.toString().split(";")) {
 			//System.out.println(stSensor);
 			retorno = uti.buscaPalavra(cuClasse.toString(), stSensor);
+			key = stSensor.replace(".", "");
+			
 			if (!retorno.equals("0")) {
 				sensoresEncontrados += "\n- " + stSensor;
+				if (map != null && map.get(key) == null) {
+					map.put(key, 1);
+				} else {
+					map.put(key, (Integer) map.get(key) + 1);
+				}
 			}
 		}
 		return sensoresEncontrados;
 	}
 
-	/* DESAFIOS - PROCURA NO MÉTODO
-	 * -----------------------------------------------*/
+	/*
+	 * DESAFIOS - PROCURA NO METODO -----------------------------------------------
+	 */
 	@Override
 	public void visit(MethodDeclaration nomeMetodo, Object arg) {
 		Utilitarios uti = new Utilitarios();
 		String retorno = "";
-		
+
 		for (String stDesafio : arg.toString().split(";")) {
-			
+
+			// retorno = uti.buscaPalavra(nomeMetodo.getName(), stDesafio);
 			retorno = uti.buscaPalavra(nomeMetodo.getName(), stDesafio);
 			if (!retorno.equals("0")) {
-				encontradosEmMetodo += "\n!" + stDesafio.toLowerCase() + ";" + nomeMetodo.getName() + ";" + encontradosClasse + ";";
+				encontradosEmMetodo += "\n!" + stDesafio.toLowerCase() + ";" + nomeMetodo.getName() + ";"
+						+ encontradosClasse + ";";
 			}
 			contadorDeMetodos++;
 		}
 	}
-	
-	/* FRAMEWORKS DE TESTE - PROCURA NOS IMPORTS
-	 * -----------------------------------------------*/
+
+	/*
+	 * FRAMEWORKS DE TESTE - PROCURA NOS IMPORTS
+	 * -----------------------------------------------
+	 */
 	public StringBuilder listarImports(CompilationUnit m, String listaNegraDeImports) {
 		StringBuilder sbSaida = new StringBuilder();
-		
+
 		for (String stImport : m.getImports().toString().split(";")) {
 			stImport = stImport.replaceAll("\\[", "");
 			stImport = stImport.replaceAll("]", "");
@@ -98,41 +117,43 @@ public class Analisador extends VoidVisitorAdapter {
 						break;
 					}
 				}
-			}else{
+			} else {
 				flag = false;
 			}
-			
+
 			if (flag)
-				sbSaida.append("\n;" + stImport );
+				sbSaida.append("\n;" + stImport);
 		}
 		return sbSaida;
 	}
-	
-	/* FRAMEWORKS DE TESTE - PROCURA NOS PACOTES
-	 * -----------------------------------------------*/
+
+	/*
+	 * FRAMEWORKS DE TESTE - PROCURA NOS PACOTES
+	 * -----------------------------------------------
+	 */
 	public StringBuilder listarPacotes(CompilationUnit cuPacotes, String a, String listaNegraDeImports) {
 		StringBuilder sbSaida = new StringBuilder();
 		Redator redator = new Redator();
-			
-		if(redator.contaLinhasProducao(a, 0) > 0){
+
+		if (redator.contaLinhasProducao(a, 0) > 0) {
 			try {
-				for(String pacote : cuPacotes.getPackage().toString().split(";")) {
+				for (String pacote : cuPacotes.getPackage().toString().split(";")) {
 					boolean flag = true;
-					
-					if (!pacote.trim().equals("")){
+
+					if (!pacote.trim().equals("")) {
 						for (String importNegro : listaNegraDeImports.toString().split(";")) {
-						
+
 							if (pacote.contains(importNegro)) {
 								flag = false;
 								break;
 							}
 						}
-					}else{
+					} else {
 						flag = false;
 					}
-					
+
 					if (flag)
-						sbSaida.append("\n;" + pacote );
+						sbSaida.append("\n;" + pacote);
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -142,24 +163,26 @@ public class Analisador extends VoidVisitorAdapter {
 		}
 		return sbSaida;
 	}
-	
+
 	public double contadorDeLinhas(CompilationUnit cuArqsJava, double contador, String nome) {
 		int linhasEmBranco = 0;
-	
-		for(String s : cuArqsJava.toString().split("\n")){
-			if(s.trim().equals("")){
+
+		for (String s : cuArqsJava.toString().split("\n")) {
+			if (s.trim().equals("")) {
 				linhasEmBranco++;
 			}
 		}
-		contador += cuArqsJava.getEndLine() - cuArqsJava.getBeginLine() - cuArqsJava.getComments().size() - linhasEmBranco;
+		contador += cuArqsJava.getEndLine() - cuArqsJava.getBeginLine() - cuArqsJava.getComments().size()
+				- linhasEmBranco;
 		return contador;
-	} 
+	}
 
-	/* APENAS TESTES COM JAVAPARSER
-	 * -----------------------------------------------*/
+	/*
+	 * APENAS TESTES COM JAVAPARSER -----------------------------------------------
+	 */
 	public void testes(CompilationUnit m) {
 		// System.out.println(">>>> Comentarios: " + m.getComment());
-		//System.out.println(">>>> Nós filhos: " + m.getChildrenNodes());
+		// System.out.println(">>>> Nós filhos: " + m.getChildrenNodes());
 		System.out.println(">>>> Fim da linha: " + m.getEndLine());
 		System.out.println(">>>> Dados: " + m.getData());
 		System.out.println(">>>> Nós pais: " + m.getParentNode());

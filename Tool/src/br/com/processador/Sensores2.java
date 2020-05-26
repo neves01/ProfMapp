@@ -233,7 +233,7 @@ public class Sensores2 {
 		String texto = "";
 		
 		for (String caminhoClasse : arqs.getArqsJavaSRC()){
-			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores);
+			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, null);
 			if(!retorno.equals(""))
 				texto += retorno;
 		}
@@ -241,7 +241,7 @@ public class Sensores2 {
 		texto = "";
 		
 		for (String caminhoClasse : arqs.getArqsJavaTeste()){
-			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores);
+			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, null);
 			if(!retorno.equals(""))
 				texto += retorno;
 		}
