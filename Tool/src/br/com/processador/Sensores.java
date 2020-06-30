@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.javaparser.ast.CompilationUnit;
+
 public class Sensores {
 
 	// SENSORS SRC
@@ -45,8 +47,7 @@ public class Sensores {
 	// "sensor.type_accelerometer;sensor.type_ambient_temperature;sensor.type_gravity;sensor.type_gyroscope;sensor.type_light;sensor.type_linear_acceleration;sensor.type_magnetic_field;"
 	// +
 	// "sensor.type_orientation;sensor.type_pressure;sensor.type_proximity;sensor.type_relative_humidity;sensor.type_rotation_vector;sensor.type_temperature;access_coarse_location;access_fine_location";
-	private String listaDeSensores = ".setHint;.setLabelFor;.setInputType;.setAutoSizeTextTypeUniformWithConfiguration;.setAccessibilityLiveRegion;.setAccessibilityHeading;.setAccessibilityDelegate;.setAccessibilityPaneTitle;.setAccessibilityTraversalAfter;.setAccessibilityTraversalBefore;.setImportantForAccessibility;.setContentDescription;"
-			+ ".setMinWidth;.setMinHeight";
+	private String listaDeSensores = ".setHint(;.setLabelFor;.setInputType;.setAutoSizeTextTypeWithDefaults;.setAccessibilityLiveRegion;.setMinWidth;.setMinHeight";
 
 	public Arquivos getArquivos() {
 		return arquivos;
@@ -304,122 +305,125 @@ public class Sensores {
 		this.testeGpsLocation = testeGpsLocation;
 	}
 
-	public Sensores mapearSensores(HashMap map, Arquivos arqs) throws Exception{
-		
+	public Sensores mapearSensores(HashMap map, Arquivos arqs) throws Exception {
+
 		Sensores sensores = new Sensores();
 		Analisador analisador = new Analisador();
 		Utilitarios uti = new Utilitarios();
 		String retorno = "";
 		String texto = "";
-		
-		for (String caminhoClasse : arqs.getArqsJavaSRC()){
-			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, map);
-			
-			if(!retorno.equals("")){
-				//System.out.println(retorno);
-				System.out.print("\t" + retorno + " file: " + caminhoClasse);
+		CompilationUnit cu = null;
+
+		for (String caminhoClasse : arqs.getArqsJavaSRC()) {
+			cu = analisador.mapearClasse(caminhoClasse);
+			retorno = "";
+			if (cu != null) {
+				retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, map);
+			}
+
+			if (!retorno.equals("")) {
+				// System.out.print("\t" + retorno + " file: " + caminhoClasse);
 				texto += retorno;
 
-				
 			}
 		}
 		sensoresSRC.add(uti.removeRepeticao(texto));
-		
-		if(texto.contains("accelerometer"))
+
+		if (texto.contains("accelerometer"))
 			sensores.setSrcAccelerometer("1");
-		if(texto.contains("ambient_temperature"))
-			 sensores.setSrcAmbient_temperature("1");
-		if(texto.contains("gravity"))
-			 sensores.setSrcGravity("1");
-		if(texto.contains("gyroscope"))
-			 sensores.setSrcGyroscope("1");
-		if(texto.contains("light"))
-			 sensores.setSrcLight("1");
-		if(texto.contains("linear_acceleration"))
-			 sensores.setSrcLinear_acceleration("1");
-		if(texto.contains("magnetic_field"))
-			 sensores.setSrcMagnetic_field("1");
-		if(texto.contains("orientation"))
-			 sensores.setSrcOrientation("1");
-		if(texto.contains("pressure"))
-			 sensores.setSrcPressure("1");
-		if(texto.contains("proximity"))
-			 sensores.setSrcProximity("1");
-		if(texto.contains("relative_humidity"))
-			 sensores.setSrcRelative_humidity("1");
-		if(texto.contains("rotation_vector"))
-			 sensores.setSrcRotation_vector("1");
-		if(texto.contains(";temperature;"))
-			 sensores.setSrcTemperature("1");
-		if(texto.contains("access_coarse_location") || texto.contains("access_fine_location"))
-			 sensores.setSrcGpsLocation("1");
-		
+		if (texto.contains("ambient_temperature"))
+			sensores.setSrcAmbient_temperature("1");
+		if (texto.contains("gravity"))
+			sensores.setSrcGravity("1");
+		if (texto.contains("gyroscope"))
+			sensores.setSrcGyroscope("1");
+		if (texto.contains("light"))
+			sensores.setSrcLight("1");
+		if (texto.contains("linear_acceleration"))
+			sensores.setSrcLinear_acceleration("1");
+		if (texto.contains("magnetic_field"))
+			sensores.setSrcMagnetic_field("1");
+		if (texto.contains("orientation"))
+			sensores.setSrcOrientation("1");
+		if (texto.contains("pressure"))
+			sensores.setSrcPressure("1");
+		if (texto.contains("proximity"))
+			sensores.setSrcProximity("1");
+		if (texto.contains("relative_humidity"))
+			sensores.setSrcRelative_humidity("1");
+		if (texto.contains("rotation_vector"))
+			sensores.setSrcRotation_vector("1");
+		if (texto.contains(";temperature;"))
+			sensores.setSrcTemperature("1");
+		if (texto.contains("access_coarse_location") || texto.contains("access_fine_location"))
+			sensores.setSrcGpsLocation("1");
+
 		texto = "";
-				
-		for (String caminhoClasse : arqs.getArqsJavaTeste()){
+
+		for (String caminhoClasse : arqs.getArqsJavaTeste()) {
 			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, map);
-			if(!retorno.equals(""))
+			if (!retorno.equals(""))
 				texto += retorno;
 		}
 		sensoresTeste.add(texto);
-		
-		if(texto.contains("accelerometer"))
+
+		if (texto.contains("accelerometer"))
 			sensores.setTesteAccelerometer("1");
-		if(texto.contains("ambient_temperature"))
-			 sensores.setTesteAmbient_temperature("1");
-		if(texto.contains("gravity"))
-			 sensores.setTesteGravity("1");
-		if(texto.contains("gyroscope"))
-			 sensores.setTesteGyroscope("1");
-		if(texto.contains("light"))
-			 sensores.setTesteLight("1");
-		if(texto.contains("linear_acceleration"))
-			 sensores.setTesteLinear_acceleration("1");
-		if(texto.contains("magnetic_field"))
-			 sensores.setTesteMagnetic_field("1");
-		if(texto.contains("orientation"))
-			 sensores.setTesteOrientation("1");
-		if(texto.contains("pressure"))
-			 sensores.setTestePressure("1");
-		if(texto.contains("proximity"))
-			 sensores.setTesteProximity("1");
-		if(texto.contains("relative_humidity"))
-			 sensores.setTesteRelative_humidity("1");
-		if(texto.contains("rotation_vector"))
-			 sensores.setTesteRotation_vector("1");
-		if(texto.contains(";temperature;"))
-			 sensores.setTesteTemperature("1");
-		if(texto.contains("access_coarse_location") || texto.contains("access_fine_location"))
-			 sensores.setTesteGpsLocation("1");
-		
-		/*sensores.setSrcAccelerometer(srcAccelerometer);
-		sensores.setSrcAmbient_temperature(srcAmbient_temperature);
-		sensores.setSrcGravity(srcGravity);
-		sensores.setSrcGyroscope(srcGyroscope);
-		sensores.setSrcLight(srcLight);
-		sensores.setSrcLinear_acceleration(srcLinear_acceleration);
-		sensores.setSrcMagnetic_field(srcMagnetic_field);
-		sensores.setSrcOrientation(srcOrientation);
-		sensores.setSrcPressure(srcPressure);
-		sensores.setSrcProximity(srcProximity);
-		sensores.setSrcRelative_humidity(srcRelative_humidity);
-		sensores.setSrcRotation_vector(srcRotation_vector);
-		sensores.setSrcTemperature(srcTemperature);
-		
-		sensores.setTesteAccelerometer(testeAccelerometer);
-		sensores.setTesteAmbient_temperature(testeAmbient_temperature);
-		sensores.setTesteGravity(testeGravity);
-		sensores.setTesteGyroscope(testeGyroscope);
-		sensores.setTesteLight(testeLight);
-		sensores.setTesteLinear_acceleration(testeLinear_acceleration);
-		sensores.setTesteMagnetic_field(testeMagnetic_field);
-		sensores.setTesteOrientation(testeOrientation);
-		sensores.setTestePressure(testePressure);
-		sensores.setTesteProximity(testeProximity);
-		sensores.setTesteRelative_humidity(testeRelative_humidity);
-		sensores.setTesteRotation_vector(testeRotation_vector);
-		sensores.setTesteTemperature(testeTemperature);*/
-		
+		if (texto.contains("ambient_temperature"))
+			sensores.setTesteAmbient_temperature("1");
+		if (texto.contains("gravity"))
+			sensores.setTesteGravity("1");
+		if (texto.contains("gyroscope"))
+			sensores.setTesteGyroscope("1");
+		if (texto.contains("light"))
+			sensores.setTesteLight("1");
+		if (texto.contains("linear_acceleration"))
+			sensores.setTesteLinear_acceleration("1");
+		if (texto.contains("magnetic_field"))
+			sensores.setTesteMagnetic_field("1");
+		if (texto.contains("orientation"))
+			sensores.setTesteOrientation("1");
+		if (texto.contains("pressure"))
+			sensores.setTestePressure("1");
+		if (texto.contains("proximity"))
+			sensores.setTesteProximity("1");
+		if (texto.contains("relative_humidity"))
+			sensores.setTesteRelative_humidity("1");
+		if (texto.contains("rotation_vector"))
+			sensores.setTesteRotation_vector("1");
+		if (texto.contains(";temperature;"))
+			sensores.setTesteTemperature("1");
+		if (texto.contains("access_coarse_location") || texto.contains("access_fine_location"))
+			sensores.setTesteGpsLocation("1");
+
+		/*
+		 * sensores.setSrcAccelerometer(srcAccelerometer);
+		 * sensores.setSrcAmbient_temperature(srcAmbient_temperature);
+		 * sensores.setSrcGravity(srcGravity); sensores.setSrcGyroscope(srcGyroscope);
+		 * sensores.setSrcLight(srcLight);
+		 * sensores.setSrcLinear_acceleration(srcLinear_acceleration);
+		 * sensores.setSrcMagnetic_field(srcMagnetic_field);
+		 * sensores.setSrcOrientation(srcOrientation);
+		 * sensores.setSrcPressure(srcPressure); sensores.setSrcProximity(srcProximity);
+		 * sensores.setSrcRelative_humidity(srcRelative_humidity);
+		 * sensores.setSrcRotation_vector(srcRotation_vector);
+		 * sensores.setSrcTemperature(srcTemperature);
+		 * 
+		 * sensores.setTesteAccelerometer(testeAccelerometer);
+		 * sensores.setTesteAmbient_temperature(testeAmbient_temperature);
+		 * sensores.setTesteGravity(testeGravity);
+		 * sensores.setTesteGyroscope(testeGyroscope);
+		 * sensores.setTesteLight(testeLight);
+		 * sensores.setTesteLinear_acceleration(testeLinear_acceleration);
+		 * sensores.setTesteMagnetic_field(testeMagnetic_field);
+		 * sensores.setTesteOrientation(testeOrientation);
+		 * sensores.setTestePressure(testePressure);
+		 * sensores.setTesteProximity(testeProximity);
+		 * sensores.setTesteRelative_humidity(testeRelative_humidity);
+		 * sensores.setTesteRotation_vector(testeRotation_vector);
+		 * sensores.setTesteTemperature(testeTemperature);
+		 */
+
 		sensores.setSensoresSRC(sensoresSRC);
 		sensores.setSensoresTeste(sensoresTeste);
 		sensores.setArquivos(arqs);

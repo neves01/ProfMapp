@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Layouts {
@@ -309,7 +310,7 @@ public class Layouts {
 		long dbEditText = 0;
 
 		long dbEditTextHint = 0;
-		long dbTextViewLabelFor = 0;
+		// long dbTextViewLabelFor = 0;
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -370,71 +371,153 @@ public class Layouts {
 				NodeList nodeWebView = doc.getElementsByTagName("WebView");
 				dbWebView += nodeWebView.getLength();
 
-				NodeList nodeEditText = doc.getElementsByTagName("EditText");
-				dbEditText += nodeEditText.getLength();
+				NodeList nodes = doc.getDocumentElement().getElementsByTagName("*");
 
 				// HINT
-				for (int j = 0; j < nodeEditText.getLength(); ++j) {
-					Element elEditText = (Element) nodeEditText.item(j);
-					String stHint = elEditText.getAttribute("android:hint");
+				for (int j = 0; j < nodes.getLength(); ++j) {
+
+					Element e = (Element) nodes.item(j);
+					String stHint = e.getAttribute("android:hint");
 
 					if (!stHint.equals("")) {
-						dbEditTextHint += 1;
-						
+						// dbEditTextHint += 1;
 						if (map != null && map.get("hint") == null) {
 							map.put("hint", 1);
 						} else {
 							map.put("hint", (Integer) map.get("hint") + 1);
 						}
-						
-						// System.out.println("ACHEI HINT");
 					}
 
 				}
 
 				// LABELFOR
-				for (int j = 0; j < nodeTextView.getLength(); ++j) {
-					Element elTextView = (Element) nodeTextView.item(j);
-					String stLabelFor = elTextView.getAttribute("android:labelFor");
+				for (int j = 0; j < nodes.getLength(); ++j) {
+
+					Element e = (Element) nodes.item(j);
+					String stLabelFor = e.getAttribute("android:labelFor");
+					String tagName = e.getTagName();
 
 					if (!stLabelFor.equals("")) {
-						dbTextViewLabelFor += 1;
-						// System.out.println("\t----ACHEI labelFor");
+						System.out.println ("TAG: " + tagName + " labelFor");
+						// dbTextViewLabelFor += 1;
+						if (map != null && map.get("labelFor") == null) {
+							map.put("labelFor", 1);
+						} else {
+							map.put("labelFor", (Integer) map.get("labelFor") + 1);
+						}
 					}
 
 				}
 
-				// MINWIDTH
-				for (int j = 0; j < nodeButton.getLength(); ++j) {
-					Element elEditText = (Element) nodeButton.item(j);
-					String stHint = elEditText.getAttribute("android:minWidth");
-					String stHint2 = elEditText.getAttribute("android:minHeight");
+				// minWidth
+				for (int j = 0; j < nodes.getLength(); ++j) {
 
-					if (!stHint.equals("") || !stHint2.equals("")) {
+					Element e = (Element) nodes.item(j);
+					String stHint = e.getAttribute("android:minWidth");
+
+					if (!stHint.equals("")) {
 						dbEditTextHint += 1;
-						// System.out.println("\t--ACHEI minWidth");
+						if (map != null && map.get("minWidth") == null) {
+							map.put("minWidth", 1);
+						} else {
+							map.put("minWidth", (Integer) map.get("minWidth") + 1);
+						}
 					}
 
 				}
 
-				// TEXT FIELD
-				for (int j = 0; j < nodeEditText.getLength(); ++j) {
-					Element elEditText = (Element) nodeEditText.item(j);
-					String stInputType = elEditText.getAttribute("android:inputType");
+				// minHeight
+				for (int j = 0; j < nodes.getLength(); ++j) {
 
-					if (stInputType.equals("text"))
-						dbText += 1;
-					else if (stInputType.equals("textCapWords"))
-						dbPersonName += 1;
-					else if (stInputType.equals("textPassword"))
-						dbPassword += 1;
-					else if (stInputType.equals("phone"))
-						dbPhone += 1;
-					else if (stInputType.equals("textMultiLine"))
-						dbMultilineText += 1;
-					else if (stInputType.equals("number"))
-						dbNumber += 1;
+					Element e = (Element) nodes.item(j);
+					String stminHeight = e.getAttribute("android:minHeight");
+
+					if (!stminHeight.equals("")) {
+						dbEditTextHint += 1;
+						if (map != null && map.get("minHeight") == null) {
+							map.put("minHeight", 1);
+						} else {
+							map.put("minHeight", (Integer) map.get("minHeight") + 1);
+						}
+					}
+
 				}
+
+				// inputType
+				for (int j = 0; j < nodes.getLength(); ++j) {
+					if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+						Element e = (Element) nodes.item(j);
+						String stInputType = e.getAttribute("android:inputType");
+
+						if (stInputType.equals("text"))
+							dbText += 1;
+						else if (stInputType.equals("textCapWords"))
+							dbPersonName += 1;
+						else if (stInputType.equals("textPassword"))
+							dbPassword += 1;
+						else if (stInputType.equals("phone"))
+							dbPhone += 1;
+						else if (stInputType.equals("textMultiLine"))
+							dbMultilineText += 1;
+						else if (stInputType.equals("number"))
+							dbNumber += 1;
+						if (!stInputType.equals("")) {
+							System.out.println("INPUT NODE:" + e.getNodeName());
+							if (map != null && map.get("inputType") == null) {
+								map.put("inputType", 1);
+							} else {
+								map.put("inputType", (Integer) map.get("inputType") + 1);
+							}
+						}
+					}
+				}
+
+				// autoSizeTextType
+				for (int j = 0; j < nodes.getLength(); ++j) {
+
+					Element e = (Element) nodes.item(j);
+					String stLabelFor = e.getAttribute("android:autoSizeTextType");
+
+					if (!stLabelFor.equals("")) {
+						// dbTextViewLabelFor += 1;
+						if (map != null && map.get("autoSizeTextType") == null) {
+							map.put("autoSizeTextType", 1);
+						} else {
+							map.put("autoSizeTextType", (Integer) map.get("autoSizeTextType") + 1);
+						}
+					}
+
+				}
+
+				// accessibilityLiveRegion
+				for (int j = 0; j < nodes.getLength(); ++j) {
+					if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+						Element e = (Element) nodes.item(j);
+						String stLabelFor = e.getAttribute("android:accessibilityLiveRegion");
+
+						if (!stLabelFor.equals("")) {
+							// dbTextViewLabelFor += 1;
+							if (map != null && map.get("accessibilityLiveRegion") == null) {
+								map.put("accessibilityLiveRegion", 1);
+							} else {
+								map.put("accessibilityLiveRegion", (Integer) map.get("accessibilityLiveRegion") + 1);
+							}
+						}
+					}
+				}
+
+				/*
+				 * // contentDescription for (int j = 0; j < nodes.getLength(); ++j) { Element
+				 * elTextView = (Element) nodes.item(j); String stLabelFor =
+				 * elTextView.getAttribute("android:contentDescription");
+				 * 
+				 * if (!stLabelFor.equals("")) { //dbTextViewLabelFor += 1; if (map != null &&
+				 * map.get("contentDescription") == null) { map.put("contentDescription", 1); }
+				 * else { map.put("contentDescription", (Integer) map.get("contentDescription")
+				 * + 1); } }
+				 * 
+				 * }
+				 */
 
 				// CONTAINERS
 				NodeList nodeRadioGroup = doc.getElementsByTagName("RadioGroup");
@@ -448,7 +531,9 @@ public class Layouts {
 
 			}
 
-		} catch (Exception ex) {
+		} catch (
+
+		Exception ex) {
 			ex.printStackTrace();
 		}
 

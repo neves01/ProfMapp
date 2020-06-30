@@ -35,11 +35,14 @@ public class Analisador extends VoidVisitorAdapter {
 	 */
 	public CompilationUnit mapearClasse(String caminho) throws Exception {
 		FileInputStream inNomeClasse = new FileInputStream(caminho);
-		// System.out.println(caminho);
+		// System.out.println("Mapeando classe: " + caminho);
 		CompilationUnit cu;
 
 		try {
 			cu = JavaParser.parse(inNomeClasse);
+		} catch (Exception e) {
+			e.printStackTrace();
+			cu = null;
 		} finally {
 			inNomeClasse.close();
 		}
@@ -58,10 +61,10 @@ public class Analisador extends VoidVisitorAdapter {
 		String key = "";
 
 		for (String stSensor : listaDeSensores.toString().split(";")) {
-			//System.out.println(stSensor);
+			// System.out.println(stSensor);
 			retorno = uti.buscaPalavra(cuClasse.toString(), stSensor);
 			key = stSensor.replace(".", "");
-			
+
 			if (!retorno.equals("0")) {
 				sensoresEncontrados += "\n- " + stSensor;
 				if (map != null && map.get(key) == null) {
@@ -111,6 +114,7 @@ public class Analisador extends VoidVisitorAdapter {
 
 			if (!stImport.trim().equals("")) {
 				for (String importNegro : listaNegraDeImports.toString().split(";")) {
+					//Import example: android.app.Activity
 
 					if (stImport.contains(importNegro)) {
 						flag = false;

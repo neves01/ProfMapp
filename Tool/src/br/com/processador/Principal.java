@@ -37,6 +37,7 @@ public class Principal {
 		 */
 		// String repositorio = "/home/bernardo/Repositorio/";
 		String repositorio = "C:\\Users\\Henrique\\Downloads\\Repositorio\\";
+		//String repositorio = ".";
 
 		/*
 		 * MAPEAR PROJETOS
@@ -44,6 +45,7 @@ public class Principal {
 		 */
 		for (Projeto p : projeto.listarProjetos(repositorio)) {
 			log = new StringBuilder();
+			System.out.println("Entrando no projeto: " + p.getCaminho());
 
 			diretorios = new Diretorios();
 			diretorios = diretorios.mapearDirs(p);
@@ -57,10 +59,9 @@ public class Principal {
 			map = new HashMap<String, Integer>();
 			sensores = new Sensores();
 			sensores = sensores.mapearSensores(map, arquivos);
-			mapFilteredByProject.put(p.getNome(), map);
 
 			frameworks = new Frameworks();
-			frameworks = frameworks.mapearFrameworks(arquivos);
+			frameworks = frameworks.mapearFrameworks(map, arquivos);
 
 			configuracao = new Configuracao();
 			configuracao = configuracao.mapearConfiguracao(arquivos);
@@ -71,10 +72,9 @@ public class Principal {
 			metricas = new Metricas();
 			metricas = metricas.mapearMetricas(arquivos);
 
-			map = new HashMap<String, Integer>();
 			layouts = new Layouts();
 			layouts = layouts.mapearLayout(map, arquivos);
-			mapFilteredByProject.put("XML_"+p.getNome(), map);
+			mapFilteredByProject.put(p.getNome(), map);
 
 			sbCSV.append(redator.escreverCSV(arquivos, desafios, sensores, frameworks, configuracao, recursos, metricas,
 					layouts));
@@ -87,11 +87,11 @@ public class Principal {
 		}
 
 		for (Entry<String, HashMap<String, Integer>> entry : mapFilteredByProject.entrySet()) {
-			System.out.println("Project: " + entry.getKey());
+			System.out.println("App name: " + entry.getKey());
 			for (Entry<String, Integer> i : entry.getValue().entrySet()) {
 				System.out.println("\t" + i.getKey() + ":" + i.getValue().toString());
-			}
 
+			}
 		}
 
 		// TODO: DESCOMENTAR
