@@ -1,11 +1,14 @@
 package br.com.processador;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class Principal {
+
 	public static void main(String[] args) throws Exception {
 
 		/*
@@ -31,13 +34,16 @@ public class Principal {
 		HashMap<String, Integer> map = null;
 		HashMap<String, HashMap<String, Integer>> mapFilteredByProject = new HashMap<String, HashMap<String, Integer>>();
 
+		List<App> apps_map = new ArrayList<App>();
+
 		/*
 		 * VARIAVEIS
 		 * ---------------------------------------------------------------------
 		 */
 		// String repositorio = "/home/bernardo/Repositorio/";
-		String repositorio = "C:\\Users\\Henrique\\Downloads\\Repositorio\\";
-		//String repositorio = ".";
+		// String repositorio = "/home/henrique/Experiment/filter-f-droid";
+		String repositorio = "/home/henrique/Experiment/apps";
+		// String repositorio = ".";
 
 		/*
 		 * MAPEAR PROJETOS
@@ -73,7 +79,12 @@ public class Principal {
 			metricas = metricas.mapearMetricas(arquivos);
 
 			layouts = new Layouts();
-			layouts = layouts.mapearLayout(map, arquivos);
+
+			App a = new App();
+			a.setPacka_name(p.getNome());
+			layouts = layouts.mapearLayout(map, arquivos, apps_map, a);
+			apps_map.add(a);
+
 			mapFilteredByProject.put(p.getNome(), map);
 
 			sbCSV.append(redator.escreverCSV(arquivos, desafios, sensores, frameworks, configuracao, recursos, metricas,
@@ -98,6 +109,30 @@ public class Principal {
 		// redator.escrita(sbCSV, "Relatorio.csv");
 		// redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
 		// redator.escrita(sbRelatorioDesafios, "RelatorioDesafios.csv");
+		System.out.println("TAMM " + apps_map.size());
+		int editText = 0;
+		int imageView = 0;
+		int imageButton = 0;
+		int button = 0;
+		for (App a : apps_map) {
+			System.out.println(a.getPacka_name());
+			for (Widget w : a.getElements()) {
+				System.out.println("\tID: " + w.getId() + " TAG: " + w.getTag() + " ACCESS: " + w.toStringList());
+				if (w.getTag().contains("EditText"))
+					editText++;
+				if (w.getTag().contains("ImageView"))
+					imageView++;
+				if (w.getTag().contains("ImageButton"))
+					imageButton++;
+				if (w.getTag().contains("Button"))
+					button++;
+			}
+		}
+		
+		System.out.println("HOW MANY EDITTEXT? " + editText);
+		System.out.println("HOW MANY IMAGEVIEW? " + imageView);
+		System.out.println("HOW MANY IMAGEBUTTON? " + imageButton);
+		System.out.println("HOW MANY BUTTON? " + button);
 
 	}
 }
