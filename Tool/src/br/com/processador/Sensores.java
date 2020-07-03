@@ -2,6 +2,7 @@ package br.com.processador;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
@@ -305,7 +306,7 @@ public class Sensores {
 		this.testeGpsLocation = testeGpsLocation;
 	}
 
-	public Sensores mapearSensores(HashMap map, Arquivos arqs) throws Exception {
+	public Sensores mapearSensores(Arquivos arqs, List<App> apps_map, App a) throws Exception {
 
 		Sensores sensores = new Sensores();
 		Analisador analisador = new Analisador();
@@ -318,7 +319,7 @@ public class Sensores {
 			cu = analisador.mapearClasse(caminhoClasse);
 			retorno = "";
 			if (cu != null) {
-				retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, map);
+				retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, a);
 			}
 
 			if (!retorno.equals("")) {
@@ -361,7 +362,7 @@ public class Sensores {
 		texto = "";
 
 		for (String caminhoClasse : arqs.getArqsJavaTeste()) {
-			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, map);
+			retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeSensores, a);
 			if (!retorno.equals(""))
 				texto += retorno;
 		}

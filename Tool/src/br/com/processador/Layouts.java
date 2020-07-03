@@ -1,7 +1,5 @@
 package br.com.processador;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -9,7 +7,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Layouts {
@@ -48,9 +45,6 @@ public class Layouts {
 	private String stRadioGroup = "0";
 	private String stListView = "0";
 	private String stGridView = "0";
-
-	// ACCESSBILITY
-	private String stEditTextHint = "0";
 
 	public String getStFrameLayout() {
 		return stFrameLayout;
@@ -268,15 +262,7 @@ public class Layouts {
 		this.stEditText = stEditText;
 	}
 
-	public String getStEditTextHint() {
-		return stEditTextHint;
-	}
-
-	public void setStEditTextHint(String stEditTextHint) {
-		this.stEditTextHint = stEditTextHint;
-	}
-
-	public Layouts mapearLayout(HashMap<String, Integer> map, Arquivos arqs, List<App> apps_map, App a) {
+	public Layouts mapearLayout(Arquivos arqs, List<App> apps_map, App a) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		Layouts layouts = new Layouts();
 
@@ -310,9 +296,6 @@ public class Layouts {
 		long dbListView = 0;
 		long dbGridView = 0;
 		long dbEditText = 0;
-
-		long dbEditTextHint = 0;
-		// long dbTextViewLabelFor = 0;
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -375,15 +358,17 @@ public class Layouts {
 
 				NodeList nodes = doc.getDocumentElement().getElementsByTagName("*");
 
-				// RELATION BETWEEN WIDGET x EXPECTED ACCESSIBILITY ATTRIBUTE
-				// EditText - android:hint; android:labelFor
-				// ImageView - android:contentDescription
-				// ImageButton - android:contentDescription; android:minWidth; android:minHeight
-				// Button - android:contentDescription; android:minWidth; android:minHeight
-				// TextView - android:contentDescription; accessibilityLiveRegion
-				// LinearLayout - android:focusable; android:visibility
-				// RelativeLayout - android:focusable; android:visibility
+				// CONTAINERS
+				NodeList nodeRadioGroup = doc.getElementsByTagName("RadioGroup");
+				dbRadioGroup += nodeRadioGroup.getLength();
 
+				NodeList nodeListView = doc.getElementsByTagName("ListView");
+				dbListView += nodeListView.getLength();
+
+				NodeList nodeGridView = doc.getElementsByTagName("GridView");
+				dbGridView += nodeGridView.getLength();
+
+				// ACCESSIBILITY CHECK
 				for (int j = 0; j < nodes.getLength(); ++j) {
 					Element e = (Element) nodes.item(j);
 					String widget_id = e.getAttribute("android:id");
@@ -391,6 +376,7 @@ public class Layouts {
 						Widget w = new Widget();
 						w.setId(widget_id);
 						w.setTag(e.getTagName());
+						w.setSource("XML");
 						String att = e.getAttribute("android:hint");
 						if (!att.equals(""))
 							w.addAccessibility("hint");
@@ -412,157 +398,18 @@ public class Layouts {
 						att = e.getAttribute("android:autoSizeTextType");
 						if (!att.equalsIgnoreCase(""))
 							w.addAccessibility("autoSizeTextType");
+						att = e.getAttribute("android:accessibilityLiveRegion");
+						if (!att.equalsIgnoreCase(""))
+							w.addAccessibility("accessibilityLiveRegion");
 						if (w.getAccessibility() == null)
 							w.addAccessibility("NONE");
 
 						a.getElements().add(w);
 					}
 				}
-
-				// LABELFOR
-				for (int j = 0; j < nodes.getLength(); ++j) {
-
-					Element e = (Element) nodes.item(j);
-					String stLabelFor = e.getAttribute("android:labelFor");
-					String tagName = e.getTagName();
-
-					if (!stLabelFor.equals("")) {
-						System.out.println("TAG: " + tagName + " labelFor");
-						// dbTextViewLabelFor += 1;
-						if (map != null && map.get("labelFor") == null) {
-							map.put("labelFor", 1);
-						} else {
-							map.put("labelFor", (Integer) map.get("labelFor") + 1);
-						}
-					}
-
-				}
-
-				// minWidth
-				for (int j = 0; j < nodes.getLength(); ++j) {
-
-					Element e = (Element) nodes.item(j);
-					String stHint = e.getAttribute("android:minWidth");
-
-					if (!stHint.equals("")) {
-						dbEditTextHint += 1;
-						if (map != null && map.get("minWidth") == null) {
-							map.put("minWidth", 1);
-						} else {
-							map.put("minWidth", (Integer) map.get("minWidth") + 1);
-						}
-					}
-
-				}
-
-				// minHeight
-				for (int j = 0; j < nodes.getLength(); ++j) {
-
-					Element e = (Element) nodes.item(j);
-					String stminHeight = e.getAttribute("android:minHeight");
-
-					if (!stminHeight.equals("")) {
-						dbEditTextHint += 1;
-						if (map != null && map.get("minHeight") == null) {
-							map.put("minHeight", 1);
-						} else {
-							map.put("minHeight", (Integer) map.get("minHeight") + 1);
-						}
-					}
-
-				}
-
-				// inputType
-				for (int j = 0; j < nodes.getLength(); ++j) {
-					if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-						Element e = (Element) nodes.item(j);
-						String stInputType = e.getAttribute("android:inputType");
-
-						if (stInputType.equals("text"))
-							dbText += 1;
-						else if (stInputType.equals("textCapWords"))
-							dbPersonName += 1;
-						else if (stInputType.equals("textPassword"))
-							dbPassword += 1;
-						else if (stInputType.equals("phone"))
-							dbPhone += 1;
-						else if (stInputType.equals("textMultiLine"))
-							dbMultilineText += 1;
-						else if (stInputType.equals("number"))
-							dbNumber += 1;
-						if (!stInputType.equals("")) {
-							// System.out.println("INPUT NODE:" + e.getNodeName());
-							if (map != null && map.get("inputType") == null) {
-								map.put("inputType", 1);
-							} else {
-								map.put("inputType", (Integer) map.get("inputType") + 1);
-							}
-						}
-					}
-				}
-
-				// autoSizeTextType
-				for (int j = 0; j < nodes.getLength(); ++j) {
-
-					Element e = (Element) nodes.item(j);
-					String stLabelFor = e.getAttribute("android:autoSizeTextType");
-
-					if (!stLabelFor.equals("")) {
-						// dbTextViewLabelFor += 1;
-						if (map != null && map.get("autoSizeTextType") == null) {
-							map.put("autoSizeTextType", 1);
-						} else {
-							map.put("autoSizeTextType", (Integer) map.get("autoSizeTextType") + 1);
-						}
-					}
-
-				}
-
-				// accessibilityLiveRegion
-				for (int j = 0; j < nodes.getLength(); ++j) {
-					if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-						Element e = (Element) nodes.item(j);
-						String stLabelFor = e.getAttribute("android:accessibilityLiveRegion");
-
-						if (!stLabelFor.equals("")) {
-							// dbTextViewLabelFor += 1;
-							if (map != null && map.get("accessibilityLiveRegion") == null) {
-								map.put("accessibilityLiveRegion", 1);
-							} else {
-								map.put("accessibilityLiveRegion", (Integer) map.get("accessibilityLiveRegion") + 1);
-							}
-						}
-					}
-				}
-
-				/*
-				 * // contentDescription for (int j = 0; j < nodes.getLength(); ++j) { Element
-				 * elTextView = (Element) nodes.item(j); String stLabelFor =
-				 * elTextView.getAttribute("android:contentDescription");
-				 * 
-				 * if (!stLabelFor.equals("")) { //dbTextViewLabelFor += 1; if (map != null &&
-				 * map.get("contentDescription") == null) { map.put("contentDescription", 1); }
-				 * else { map.put("contentDescription", (Integer) map.get("contentDescription")
-				 * + 1); } }
-				 * 
-				 * }
-				 */
-
-				// CONTAINERS
-				NodeList nodeRadioGroup = doc.getElementsByTagName("RadioGroup");
-				dbRadioGroup += nodeRadioGroup.getLength();
-
-				NodeList nodeListView = doc.getElementsByTagName("ListView");
-				dbListView += nodeListView.getLength();
-
-				NodeList nodeGridView = doc.getElementsByTagName("GridView");
-				dbGridView += nodeGridView.getLength();
-
 			}
 
-		} catch (
-
-		Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
@@ -601,9 +448,6 @@ public class Layouts {
 		layouts.setStRadioGroup("" + dbRadioGroup);
 		layouts.setStListView("" + dbListView);
 		layouts.setStGridView("" + dbGridView);
-
-		// ACCESSIBILITY
-		layouts.setStEditTextHint("" + dbEditTextHint);
 
 		return layouts;
 	}

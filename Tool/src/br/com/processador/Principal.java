@@ -1,13 +1,12 @@
 package br.com.processador;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class Principal {
+
+	static List<App> apps_map = new ArrayList<App>();
 
 	public static void main(String[] args) throws Exception {
 
@@ -34,15 +33,13 @@ public class Principal {
 		HashMap<String, Integer> map = null;
 		HashMap<String, HashMap<String, Integer>> mapFilteredByProject = new HashMap<String, HashMap<String, Integer>>();
 
-		List<App> apps_map = new ArrayList<App>();
-
 		/*
 		 * VARIAVEIS
 		 * ---------------------------------------------------------------------
 		 */
 		// String repositorio = "/home/bernardo/Repositorio/";
-		// String repositorio = "/home/henrique/Experiment/filter-f-droid";
-		String repositorio = "/home/henrique/Experiment/apps";
+		String repositorio = "/home/henrique/Experiment/filter-f-droid";
+		// String repositorio = "/home/henrique/Experiment/apps";
 		// String repositorio = ".";
 
 		/*
@@ -51,6 +48,9 @@ public class Principal {
 		 */
 		for (Projeto p : projeto.listarProjetos(repositorio)) {
 			log = new StringBuilder();
+
+			App a = new App();
+			a.setPacka_name(p.getNome());
 			System.out.println("Entrando no projeto: " + p.getCaminho());
 
 			diretorios = new Diretorios();
@@ -64,7 +64,7 @@ public class Principal {
 
 			map = new HashMap<String, Integer>();
 			sensores = new Sensores();
-			sensores = sensores.mapearSensores(map, arquivos);
+			sensores = sensores.mapearSensores(arquivos, apps_map, a);
 
 			frameworks = new Frameworks();
 			frameworks = frameworks.mapearFrameworks(map, arquivos);
@@ -80,9 +80,7 @@ public class Principal {
 
 			layouts = new Layouts();
 
-			App a = new App();
-			a.setPacka_name(p.getNome());
-			layouts = layouts.mapearLayout(map, arquivos, apps_map, a);
+			layouts = layouts.mapearLayout(arquivos, apps_map, a);
 			apps_map.add(a);
 
 			mapFilteredByProject.put(p.getNome(), map);
@@ -97,42 +95,65 @@ public class Principal {
 			redator.escrita(log, diretorios.getProjeto().getNome() + "_log.txt");
 		}
 
-		for (Entry<String, HashMap<String, Integer>> entry : mapFilteredByProject.entrySet()) {
-			System.out.println("App name: " + entry.getKey());
-			for (Entry<String, Integer> i : entry.getValue().entrySet()) {
-				System.out.println("\t" + i.getKey() + ":" + i.getValue().toString());
-
-			}
-		}
-
 		// TODO: DESCOMENTAR
 		// redator.escrita(sbCSV, "Relatorio.csv");
 		// redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
 		// redator.escrita(sbRelatorioDesafios, "RelatorioDesafios.csv");
-		System.out.println("TAMM " + apps_map.size());
-		int editText = 0;
-		int imageView = 0;
-		int imageButton = 0;
-		int button = 0;
+
+		int hint = 0, contentDescription = 0, labelFor = 0, minWidth = 0, minHeight = 0, inputType = 0,
+				accessibilityLiveRegion = 0;
+
+		int editText = 0, imageView = 0, imageButton = 0, button = 0, textView = 0;
 		for (App a : apps_map) {
 			System.out.println(a.getPacka_name());
 			for (Widget w : a.getElements()) {
-				System.out.println("\tID: " + w.getId() + " TAG: " + w.getTag() + " ACCESS: " + w.toStringList());
-				if (w.getTag().contains("EditText"))
-					editText++;
-				if (w.getTag().contains("ImageView"))
-					imageView++;
-				if (w.getTag().contains("ImageButton"))
-					imageButton++;
-				if (w.getTag().contains("Button"))
-					button++;
-			}
-		}
-		
-		System.out.println("HOW MANY EDITTEXT? " + editText);
-		System.out.println("HOW MANY IMAGEVIEW? " + imageView);
-		System.out.println("HOW MANY IMAGEBUTTON? " + imageButton);
-		System.out.println("HOW MANY BUTTON? " + button);
+				for (Accessibility acc : w.getAccessibility()) {
+					if (acc.getAttribute().contains("hint")) {
+						hint++;
+						if (acc.getAttribute().contains("contentDescription"))
+							contentDescription++;
+						if (acc.getAttribute().contains("labelFor"))
+							labelFor++;
+						if (acc.getAttribute().contains("minWidth"))
+							minWidth++;
+						if (acc.getAttribute().contains("minHeight"))
+							minHeight++;
+						if (acc.getAttribute().contains("inputType"))
+							inputType++;
+						if (acc.getAttribute().contains("accessibilityLiveRegion"))
+							accessibilityLiveRegion++;
+					}
 
+					// System.out.println("\tID: " + w.getId() + " TAG: " + w.getTag() + " ACCESS: "
+					// + w.toStringList());
+					if (w.getTag().contains("EditText"))
+						editText++;
+					if (w.getTag().contains("ImageView"))
+						imageView++;
+					if (w.getTag().contains("ImageButton"))
+						imageButton++;
+					if (w.getTag().contains("Button"))
+						button++;
+					if (w.getTag().contains("TextView"))
+						textView++;
+
+				}
+			}
+
+			System.out.println("TOTAL APPS: " + apps_map.size());
+			System.out.println("XML_EDITTEXT: " + editText);
+			System.out.println("XML_IMAGEVIEW: " + imageView);
+			System.out.println("XML_IMAGEBUTTON: " + imageButton);
+			System.out.println("XML_BUTTON: " + button);
+			System.out.println("XML_HINT: " + hint);
+			System.out.println("XML_CONTENTDESCRIPTION: " + contentDescription);
+			System.out.println("XML_LABELFOR: " + labelFor);
+			System.out.println("XML_MINWIDTH: " + minWidth);
+			System.out.println("XML_MINHEIGHT: " + minHeight);
+			System.out.println("XML_INPUTTYPE: " + inputType);
+			System.out.println("XML_ACCESSIBILITYLIVEREGION: " + accessibilityLiveRegion);
+
+			redator.accessibilityReport(apps_map);
+		}
 	}
 }

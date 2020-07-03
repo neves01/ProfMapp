@@ -54,24 +54,24 @@ public class Analisador extends VoidVisitorAdapter {
 	 * SENSORES - PROCURA NA ASSINATURA
 	 * -----------------------------------------------
 	 */
-	public String visitarConteudo(CompilationUnit cuClasse, String listaDeSensores, HashMap map) {
+	public String visitarConteudo(CompilationUnit cuClasse, String listaDeSensores, App a) {
 		Utilitarios uti = new Utilitarios();
 		String retorno = "";
 		String sensoresEncontrados = "";
-		String key = "";
 
 		for (String stSensor : listaDeSensores.toString().split(";")) {
-			// System.out.println(stSensor);
 			retorno = uti.buscaPalavra(cuClasse.toString(), stSensor);
-			key = stSensor.replace(".", "");
 
 			if (!retorno.equals("0")) {
 				sensoresEncontrados += "\n- " + stSensor;
-				if (map != null && map.get(key) == null) {
-					map.put(key, 1);
-				} else {
-					map.put(key, (Integer) map.get(key) + 1);
-				}
+				System.out.println("ACHEI METODO");
+				Widget w = new Widget();
+				w.setId("-1");
+				w.setSource("JAVA");
+				w.setTag("METHOD");
+				Accessibility acc = new Accessibility(stSensor);
+				w.getAccessibility().add(acc);
+				a.getElements().add(w);
 			}
 		}
 		return sensoresEncontrados;
@@ -114,7 +114,7 @@ public class Analisador extends VoidVisitorAdapter {
 
 			if (!stImport.trim().equals("")) {
 				for (String importNegro : listaNegraDeImports.toString().split(";")) {
-					//Import example: android.app.Activity
+					// Import example: android.app.Activity
 
 					if (stImport.contains(importNegro)) {
 						flag = false;
