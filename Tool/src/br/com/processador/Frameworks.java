@@ -252,7 +252,7 @@ public class Frameworks {
 	/*
 	 * MAPEAR FRAMEWORKS --------------------------------------------
 	 */
-	public Frameworks mapearFrameworks(HashMap<String, Integer> map, Arquivos arqs) throws Exception {
+	public Frameworks mapearFrameworks(Arquivos arqs) throws Exception {
 		Frameworks frameworks = new Frameworks();
 		Analisador analisador = new Analisador();
 		Utilitarios uti = new Utilitarios();
@@ -276,14 +276,12 @@ public class Frameworks {
 		if (sbTextoImp.toString().toLowerCase().contains("accessibilitychecks")
 				|| sbTextoImp.toString().toLowerCase().toLowerCase().contains("acessibility")) {
 			accessibility = true;
-			map.put("accessibility", 1);
 		}
 
 		String textoFramework = uti.removeRepeticao23(listarFrameworks(pacotesSRC, importsTeste)).toString();
 
 		if (textoFramework.contains("robotium")) {
 			frameworks.setStrobotium("1");
-			map.put("robotium", 1);
 		}
 
 		if (textoFramework.contains("junit"))
@@ -291,18 +289,15 @@ public class Frameworks {
 		if (textoFramework.contains("android.test"))
 			frameworks.setStandroid("1");
 		if (textoFramework.contains("espresso")) {
-			map.put("espresso", 1);
 			frameworks.setStespresso("1");
 		}
 		if (textoFramework.contains("hamcrest"))
 			frameworks.setSthamcrest("1");
 		if (textoFramework.contains("robolectric")) {
 			frameworks.setStrobolectric("1");
-			map.put("robolectric", 1);
 		}
 		if (textoFramework.contains("robolectric")) {
 			frameworks.setStrobolectric("1");
-			map.put("robolectric", 1);
 		}
 		if (textoFramework.contains("easymock"))
 			frameworks.setSteasymock("1");

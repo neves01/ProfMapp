@@ -22,8 +22,6 @@ public class Redator {
 		try {
 
 			// arq = new FileWriter("/home/bernardo/Repositorio/" + nomeDocumento);
-			// arq = new FileWriter("C:\\Users\\Henrique\\Downloads\\Repositorio\\" +
-			// nomeDocumento);
 			arq = new FileWriter("/home/henrique/Experiment/" + nomeDocumento);
 			PrintWriter gravarArq = new PrintWriter(arq);
 			gravarArq.println(texto);
@@ -331,26 +329,34 @@ public class Redator {
 		return counter;
 	}
 
-	public void accessibilityReport(List<App> apps_map) {
+	public boolean anyAccessibilityAttribute(App a) {
+		for (Widget w : a.getElements())
+			if (w.getAccessibility().size() > 0 && !w.getAccessibility().get(0).getAttribute().isEmpty())
+				return true;
+		return false;
+	}
+
+	public void customAppend(StringBuilder sb, String left, App a, String src, String attribute) {
+		int count = count(a, src, attribute);
+		if (count > 0)
+			sb.append(left + ": " + count(a, src, attribute) + "\n");
+	}
+
+	public void accessibilityReport(List<App> apps_map, List<String> listaDeAttAccXML, String listaDeAttAcc) {
 		StringBuilder report = new StringBuilder();
+		int appWithoutAccessibilities = 0;
+		System.out.println(listaDeAttAcc);
 		for (App a : apps_map) {
-			report.append("\n------------------------------------------\n");
-			report.append(a.getPacka_name() + "\n");
-			report.append("\tXML_hint: " + count(a, "XML", "hint") + "\n");
-			report.append("\tSRC_hint: " + count(a, "JAVA", "setHint") + "\n");
-			report.append("\tXML_labelFor: " + count(a, "XML", "labelFor") + "\n");
-			report.append("\tSRC_labelFor: " + count(a, "JAVA", "labelFor") + "\n");
-			report.append("\tXML_minWidth: " + count(a, "XML", "minWidth") + "\n");
-			report.append("\tSRC_minWidth: " + count(a, "JAVA", "minWidth") + "\n");
-			report.append("\tXML_minHeight: " + count(a, "XML", "minHeight") + "\n");
-			report.append("\tSRC_minHeight: " + count(a, "JAVA", "minHeight") + "\n");
-			report.append("\tXML_contentDescription: " + count(a, "XML", "contentDescription") + "\n");
-			report.append("\tSRC_contentDescription: " + count(a, "JAVA", "contentDescription") + "\n");
-			report.append("\tXML_inputType: " + count(a, "XML", "inputType") + "\n");
-			report.append("\tSRC_inputType: " + count(a, "JAVA", "inputType") + "\n");
-			report.append("\tXML_accessibilityLiveRegion: " + count(a, "XML", "accessibilityLiveRegion") + "\n");
-			report.append("\tSRC_accessibilityLiveRegion: " + count(a, "JAVA", "accessibilityLiveRegion"));
+			report.append("------------------------------------------\n");
+			report.append("App: " + a.getPacka_name() + "\n");
+			for (String s : listaDeAttAccXML)
+				customAppend(report, "\tXML_" + s, a, "XML", s);
+
+			for (String s_src : listaDeAttAcc.split(";"))
+				customAppend(report, "\tSRC_" + s_src, a, "SRC", s_src);
+
 		}
 		escrita(report, "accessibilityReport.log");
+		//System.out.println("Apps without accessibilities attributes: " + appWithoutAccessibilities);
 	}
 }

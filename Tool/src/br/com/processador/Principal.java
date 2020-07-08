@@ -1,12 +1,54 @@
 package br.com.processador;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Principal {
 
 	static List<App> apps_map = new ArrayList<App>();
+
+	public static String feedAccessibilityList(String filePath) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+			String line;
+			while ((line = br.readLine()) != null)
+				sb.append(line + ";");
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return sb.toString();
+	}
+
+	public static List<String> feedAccessibilityList_XML(String filePath) {
+		List<String> lines = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+			String line;
+			while ((line = br.readLine()) != null) {
+				lines.add(line);
+			}
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return lines;
+	}
 
 	public static void main(String[] args) throws Exception {
 
@@ -23,6 +65,7 @@ public class Principal {
 		Configuracao configuracao = new Configuracao();
 		Metricas metricas = new Metricas();
 		Layouts layouts = new Layouts();
+		Attributes_Accessibility attributes_acc = new Attributes_Accessibility();
 
 		Redator redator = new Redator();
 		StringBuilder sbRelatorioFinal = new StringBuilder();
@@ -30,22 +73,22 @@ public class Principal {
 		StringBuilder sbCSV = new StringBuilder();
 		StringBuilder log = new StringBuilder();
 
-		HashMap<String, Integer> map = null;
-		HashMap<String, HashMap<String, Integer>> mapFilteredByProject = new HashMap<String, HashMap<String, Integer>>();
-
 		/*
 		 * VARIAVEIS
 		 * ---------------------------------------------------------------------
 		 */
-		// String repositorio = "/home/bernardo/Repositorio/";
+
 		String repositorio = "/home/henrique/Experiment/filter-f-droid";
-		// String repositorio = "/home/henrique/Experiment/apps";
-		// String repositorio = ".";
+		String listaDeAttAcc = feedAccessibilityList(
+				"/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_SRC.list");
+		List<String> listaDeAttAccXML = feedAccessibilityList_XML(
+				"/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_XML.list");
 
 		/*
 		 * MAPEAR PROJETOS
 		 * ---------------------------------------------------------------------
 		 */
+
 		for (Projeto p : projeto.listarProjetos(repositorio)) {
 			log = new StringBuilder();
 
@@ -62,12 +105,14 @@ public class Principal {
 			desafios = new Desafios();
 			desafios = desafios.mapearDesafios(arquivos);
 
-			map = new HashMap<String, Integer>();
 			sensores = new Sensores();
-			sensores = sensores.mapearSensores(arquivos, apps_map, a);
+			// sensores = sensores.mapearSensores(arquivos, apps_map, a);
+
+			attributes_acc = new Attributes_Accessibility();
+			attributes_acc.mapearAccessibilityAttributes(arquivos, apps_map, a, listaDeAttAcc);
 
 			frameworks = new Frameworks();
-			frameworks = frameworks.mapearFrameworks(map, arquivos);
+			frameworks = frameworks.mapearFrameworks(arquivos);
 
 			configuracao = new Configuracao();
 			configuracao = configuracao.mapearConfiguracao(arquivos);
@@ -80,10 +125,8 @@ public class Principal {
 
 			layouts = new Layouts();
 
-			layouts = layouts.mapearLayout(arquivos, apps_map, a);
+			layouts = layouts.mapearLayout(arquivos, apps_map, a, listaDeAttAccXML);
 			apps_map.add(a);
-
-			mapFilteredByProject.put(p.getNome(), map);
 
 			sbCSV.append(redator.escreverCSV(arquivos, desafios, sensores, frameworks, configuracao, recursos, metricas,
 					layouts));
@@ -92,7 +135,7 @@ public class Principal {
 			sbRelatorioDesafios.append(redator.escreverDesafios(desafios));
 			log.append(redator.escreverLog(arquivos, desafios, sensores, frameworks, configuracao, recursos, metricas,
 					layouts));
-			redator.escrita(log, diretorios.getProjeto().getNome() + "_log.txt");
+			// redator.escrita(log, diretorios.getProjeto().getNome() + "_log.txt");
 		}
 
 		// TODO: DESCOMENTAR
@@ -100,7 +143,7 @@ public class Principal {
 		// redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
 		// redator.escrita(sbRelatorioDesafios, "RelatorioDesafios.csv");
 
-		int hint = 0, contentDescription = 0, labelFor = 0, minWidth = 0, minHeight = 0, inputType = 0,
+		int hint = 0, contentDescription = 0, labelFor = 0, minWidth = 0, minHeight = 0, autoSizeTextType = 0,
 				accessibilityLiveRegion = 0;
 
 		int editText = 0, imageView = 0, imageButton = 0, button = 0, textView = 0;
@@ -118,8 +161,8 @@ public class Principal {
 							minWidth++;
 						if (acc.getAttribute().contains("minHeight"))
 							minHeight++;
-						if (acc.getAttribute().contains("inputType"))
-							inputType++;
+						if (acc.getAttribute().contains("autoSizeTextType"))
+							autoSizeTextType++;
 						if (acc.getAttribute().contains("accessibilityLiveRegion"))
 							accessibilityLiveRegion++;
 					}
@@ -136,24 +179,23 @@ public class Principal {
 						button++;
 					if (w.getTag().contains("TextView"))
 						textView++;
-
 				}
 			}
-
-			System.out.println("TOTAL APPS: " + apps_map.size());
-			System.out.println("XML_EDITTEXT: " + editText);
-			System.out.println("XML_IMAGEVIEW: " + imageView);
-			System.out.println("XML_IMAGEBUTTON: " + imageButton);
-			System.out.println("XML_BUTTON: " + button);
-			System.out.println("XML_HINT: " + hint);
-			System.out.println("XML_CONTENTDESCRIPTION: " + contentDescription);
-			System.out.println("XML_LABELFOR: " + labelFor);
-			System.out.println("XML_MINWIDTH: " + minWidth);
-			System.out.println("XML_MINHEIGHT: " + minHeight);
-			System.out.println("XML_INPUTTYPE: " + inputType);
-			System.out.println("XML_ACCESSIBILITYLIVEREGION: " + accessibilityLiveRegion);
-
-			redator.accessibilityReport(apps_map);
 		}
+
+		System.out.println("TOTAL APPS: " + apps_map.size());
+		System.out.println("XML_EDITTEXT: " + editText);
+		System.out.println("XML_IMAGEVIEW: " + imageView);
+		System.out.println("XML_IMAGEBUTTON: " + imageButton);
+		System.out.println("XML_BUTTON: " + button);
+		System.out.println("XML_HINT: " + hint);
+		System.out.println("XML_CONTENTDESCRIPTION: " + contentDescription);
+		System.out.println("XML_LABELFOR: " + labelFor);
+		System.out.println("XML_MINWIDTH: " + minWidth);
+		System.out.println("XML_MINHEIGHT: " + minHeight);
+		System.out.println("XML_AUTOSIZETEXTTYPE:" + autoSizeTextType);
+		System.out.println("XML_ACCESSIBILITYLIVEREGION: " + accessibilityLiveRegion);
+
+		redator.accessibilityReport(apps_map, listaDeAttAccXML, listaDeAttAcc);
 	}
 }

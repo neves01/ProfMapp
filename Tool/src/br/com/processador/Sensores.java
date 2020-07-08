@@ -1,5 +1,9 @@
 package br.com.processador;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +48,8 @@ public class Sensores {
 	private Arquivos arquivos = new Arquivos();
 	private ArrayList<String> sensoresSRC = new ArrayList<String>();
 	private ArrayList<String> sensoresTeste = new ArrayList<String>();
-	// private String listaDeSensores =
-	// "sensor.type_accelerometer;sensor.type_ambient_temperature;sensor.type_gravity;sensor.type_gyroscope;sensor.type_light;sensor.type_linear_acceleration;sensor.type_magnetic_field;"
-	// +
-	// "sensor.type_orientation;sensor.type_pressure;sensor.type_proximity;sensor.type_relative_humidity;sensor.type_rotation_vector;sensor.type_temperature;access_coarse_location;access_fine_location";
-	private String listaDeSensores = ".setHint(;.setLabelFor;.setInputType;.setAutoSizeTextTypeWithDefaults;.setAccessibilityLiveRegion;.setMinWidth;.setMinHeight";
+	private String listaDeSensores = "sensor.type_accelerometer;sensor.type_ambient_temperature;sensor.type_gravity;sensor.type_gyroscope;sensor.type_light;sensor.type_linear_acceleration;sensor.type_magnetic_field;"
+			+ "sensor.type_orientation;sensor.type_pressure;sensor.type_proximity;sensor.type_relative_humidity;sensor.type_rotation_vector;sensor.type_temperature;access_coarse_location;access_fine_location";
 
 	public Arquivos getArquivos() {
 		return arquivos;
@@ -325,7 +326,6 @@ public class Sensores {
 			if (!retorno.equals("")) {
 				// System.out.print("\t" + retorno + " file: " + caminhoClasse);
 				texto += retorno;
-
 			}
 		}
 		sensoresSRC.add(uti.removeRepeticao(texto));

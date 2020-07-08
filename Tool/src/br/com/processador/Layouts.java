@@ -1,5 +1,10 @@
 package br.com.processador;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -262,7 +267,7 @@ public class Layouts {
 		this.stEditText = stEditText;
 	}
 
-	public Layouts mapearLayout(Arquivos arqs, List<App> apps_map, App a) {
+	public Layouts mapearLayout(Arquivos arqs, List<App> apps_map, App a, List<String> lines) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		Layouts layouts = new Layouts();
 
@@ -369,43 +374,27 @@ public class Layouts {
 				dbGridView += nodeGridView.getLength();
 
 				// ACCESSIBILITY CHECK
+				String att;
 				for (int j = 0; j < nodes.getLength(); ++j) {
 					Element e = (Element) nodes.item(j);
 					String widget_id = e.getAttribute("android:id");
-					if (!widget_id.isEmpty() && !a.checkWidget(widget_id)) {
-						Widget w = new Widget();
-						w.setId(widget_id);
-						w.setTag(e.getTagName());
-						w.setSource("XML");
-						String att = e.getAttribute("android:hint");
-						if (!att.equals(""))
-							w.addAccessibility("hint");
-						att = e.getAttribute("android:contentDescription");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("contentDescription");
-						att = e.getAttribute("android:labelFor");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("labelFor");
-						att = e.getAttribute("android:minWidth");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("minWidth");
-						att = e.getAttribute("android:minHeight");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("minHeight");
-						att = e.getAttribute("android:inputType");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("inputType");
-						att = e.getAttribute("android:autoSizeTextType");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("autoSizeTextType");
-						att = e.getAttribute("android:accessibilityLiveRegion");
-						if (!att.equalsIgnoreCase(""))
-							w.addAccessibility("accessibilityLiveRegion");
-						if (w.getAccessibility() == null)
-							w.addAccessibility("NONE");
+					Widget w = new Widget();
+					w.setId(widget_id);
+					w.setTag(e.getTagName());
+					w.setSource("XML");
 
-						a.getElements().add(w);
+					for (String s_att : lines) {
+						att = e.getAttribute(s_att);
+						System.out.println("att: " + att + " s_att: " + s_att);
+						if (!att.equals(""))
+							w.addAccessibility(s_att);
 					}
+
+					if (w.getAccessibility() == null)
+						w.addAccessibility("NONE");
+
+					a.getElements().add(w);
+
 				}
 			}
 
