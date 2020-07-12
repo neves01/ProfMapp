@@ -12,12 +12,13 @@ public class Attributes_Accessibility {
 		Analisador analisador = new Analisador();
 		String retorno = "";
 		CompilationUnit cu = null;
-
+		
 		for (String caminhoClasse : arqs.getArqsJavaSRC()) {
 			cu = analisador.mapearClasse(caminhoClasse);
 			retorno = "";
 			if (cu != null) {
-				retorno = analisador.visitarConteudo(analisador.mapearClasse(caminhoClasse), listaDeAttAcc, a);
+				retorno = analisador.visitarConteudoAccessibility(analisador.mapearClasse(caminhoClasse), listaDeAttAcc,
+						a);
 			}
 		}
 	}

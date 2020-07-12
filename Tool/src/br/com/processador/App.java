@@ -5,6 +5,7 @@ import java.util.List;
 
 public class App {
 	private String packa_name;
+	private String manifest_path;
 	private List<Widget> elements;
 
 	App() {
@@ -33,6 +34,14 @@ public class App {
 				return true;
 		}
 		return false;
+	}
+
+	public String getManifest_path() {
+		return manifest_path;
+	}
+
+	public void setManifest_path(String manifest_path) {
+		this.manifest_path = manifest_path;
 	}
 
 }

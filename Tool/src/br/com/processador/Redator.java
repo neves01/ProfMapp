@@ -7,8 +7,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class Redator {
 
@@ -190,7 +199,7 @@ public class Redator {
 	 * -------------------------------------------------------------
 	 */
 	public StringBuilder escreverCSV(Arquivos a, Desafios d, Sensores s, Frameworks f, Configuracao c, Recursos r,
-			Metricas m, Layouts l) {
+			Metricas m, Layouts l, App app, List<String> listaDeAttAccXML, String listaDeAttAcc) {
 		Utilitarios uti = new Utilitarios();
 		StringBuilder sb = new StringBuilder();
 
@@ -307,7 +316,49 @@ public class Redator {
 
 		// EVENTOS GUI
 		sb.append(d.getOnswipetouchlistener() + ";" + d.getOndoubletaplistener() + ";" + d.getOnscalegesturelistener()
-				+ ";" + d.getShakelistener() + ";" + d.getOndraglistener() + ";" + d.getOnscrolllistener() + "\n");
+				+ ";" + d.getShakelistener() + ";" + d.getOndraglistener() + ";" + d.getOnscrolllistener() + ";");
+
+		// ACCESSIBILITY
+		int qtde_acc_total = 0;
+		int qtde = 0;
+		for (String s_xml : listaDeAttAccXML) {
+			qtde = count(app, "XML", s_xml);
+			qtde_acc_total += qtde;
+			sb.append(qtde + ";");
+		}
+
+		for (String s_src : listaDeAttAcc.split(";")) {
+			qtde = count(app, "SRC", s_src);
+			qtde_acc_total += qtde;
+			sb.append(qtde + ";");
+		}
+		
+		// QUANTIDADE TOTAL DE FEATURES DE ACESSIBILIDADE
+		sb.append(qtde_acc_total + ";");
+
+		int qtde_act = 0;
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder;
+			builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(app.getManifest_path());
+			NodeList nodes = doc.getDocumentElement().getElementsByTagName("activity");
+			qtde_act = nodes.getLength();
+			
+			// QUANTIDADE DE TELAS
+			sb.append(qtde_act + ";");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// SCORE
+		float score_normalized = -1;
+		if (qtde_act > 0)
+			score_normalized = (float) qtde_acc_total / qtde_act;
+		
+		sb.append(score_normalized + ";");
+
+		sb.append("\n");
 
 		return sb;
 	}
@@ -357,6 +408,7 @@ public class Redator {
 
 		}
 		escrita(report, "accessibilityReport.log");
-		//System.out.println("Apps without accessibilities attributes: " + appWithoutAccessibilities);
+		// System.out.println("Apps without accessibilities attributes: " +
+		// appWithoutAccessibilities);
 	}
 }

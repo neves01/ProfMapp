@@ -64,7 +64,24 @@ public class Analisador extends VoidVisitorAdapter {
 
 			if (!retorno.equals("0")) {
 				sensoresEncontrados += "\n- " + stSensor;
-				System.out.println("ACHEI METODO");
+			}
+		}
+		return sensoresEncontrados;
+	}
+
+	/*
+	 * ACCESSIBILITY METHODS -----------------------------------------------
+	 */
+	public String visitarConteudoAccessibility(CompilationUnit cuClasse, String listaMetodos, App a) {
+		Utilitarios uti = new Utilitarios();
+		String retorno = "";
+		String sensoresEncontrados = "";
+
+		for (String stSensor : listaMetodos.toString().split(";")) {
+			retorno = uti.buscaPalavra(cuClasse.toString(), stSensor);
+
+			if (!retorno.equals("0")) {
+				sensoresEncontrados += "\n- " + stSensor;
 				Widget w = new Widget();
 				w.setId("-1");
 				w.setSource("SRC");

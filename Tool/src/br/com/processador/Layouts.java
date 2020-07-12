@@ -361,8 +361,6 @@ public class Layouts {
 				NodeList nodeWebView = doc.getElementsByTagName("WebView");
 				dbWebView += nodeWebView.getLength();
 
-				NodeList nodes = doc.getDocumentElement().getElementsByTagName("*");
-
 				// CONTAINERS
 				NodeList nodeRadioGroup = doc.getElementsByTagName("RadioGroup");
 				dbRadioGroup += nodeRadioGroup.getLength();
@@ -372,6 +370,8 @@ public class Layouts {
 
 				NodeList nodeGridView = doc.getElementsByTagName("GridView");
 				dbGridView += nodeGridView.getLength();
+
+				NodeList nodes = doc.getDocumentElement().getElementsByTagName("*");
 
 				// ACCESSIBILITY CHECK
 				String att;
@@ -385,7 +385,6 @@ public class Layouts {
 
 					for (String s_att : lines) {
 						att = e.getAttribute(s_att);
-						System.out.println("att: " + att + " s_att: " + s_att);
 						if (!att.equals(""))
 							w.addAccessibility(s_att);
 					}

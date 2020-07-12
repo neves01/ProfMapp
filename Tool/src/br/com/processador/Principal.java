@@ -1,6 +1,7 @@
 package br.com.processador;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -106,7 +107,10 @@ public class Principal {
 			desafios = desafios.mapearDesafios(arquivos);
 
 			sensores = new Sensores();
-			// sensores = sensores.mapearSensores(arquivos, apps_map, a);
+			sensores = sensores.mapearSensores(arquivos, apps_map, a);
+
+			arquivos.searchForAndroidManifest(a, new File(p.getCaminho()), 0);
+			System.out.println("MANIFEST: " + a.getManifest_path());
 
 			attributes_acc = new Attributes_Accessibility();
 			attributes_acc.mapearAccessibilityAttributes(arquivos, apps_map, a, listaDeAttAcc);
@@ -129,7 +133,7 @@ public class Principal {
 			apps_map.add(a);
 
 			sbCSV.append(redator.escreverCSV(arquivos, desafios, sensores, frameworks, configuracao, recursos, metricas,
-					layouts));
+					layouts, a, listaDeAttAccXML, listaDeAttAcc));
 			sbRelatorioFinal.append(redator.escreverRelatorio(arquivos, desafios, sensores, frameworks, configuracao,
 					recursos, metricas, layouts));
 			sbRelatorioDesafios.append(redator.escreverDesafios(desafios));
@@ -139,62 +143,9 @@ public class Principal {
 		}
 
 		// TODO: DESCOMENTAR
-		// redator.escrita(sbCSV, "Relatorio.csv");
+		redator.escrita(sbCSV, "Relatorio.csv");
 		// redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
 		// redator.escrita(sbRelatorioDesafios, "RelatorioDesafios.csv");
-
-		int hint = 0, contentDescription = 0, labelFor = 0, minWidth = 0, minHeight = 0, autoSizeTextType = 0,
-				accessibilityLiveRegion = 0;
-
-		int editText = 0, imageView = 0, imageButton = 0, button = 0, textView = 0;
-		for (App a : apps_map) {
-			System.out.println(a.getPacka_name());
-			for (Widget w : a.getElements()) {
-				for (Accessibility acc : w.getAccessibility()) {
-					if (acc.getAttribute().contains("hint")) {
-						hint++;
-						if (acc.getAttribute().contains("contentDescription"))
-							contentDescription++;
-						if (acc.getAttribute().contains("labelFor"))
-							labelFor++;
-						if (acc.getAttribute().contains("minWidth"))
-							minWidth++;
-						if (acc.getAttribute().contains("minHeight"))
-							minHeight++;
-						if (acc.getAttribute().contains("autoSizeTextType"))
-							autoSizeTextType++;
-						if (acc.getAttribute().contains("accessibilityLiveRegion"))
-							accessibilityLiveRegion++;
-					}
-
-					// System.out.println("\tID: " + w.getId() + " TAG: " + w.getTag() + " ACCESS: "
-					// + w.toStringList());
-					if (w.getTag().contains("EditText"))
-						editText++;
-					if (w.getTag().contains("ImageView"))
-						imageView++;
-					if (w.getTag().contains("ImageButton"))
-						imageButton++;
-					if (w.getTag().contains("Button"))
-						button++;
-					if (w.getTag().contains("TextView"))
-						textView++;
-				}
-			}
-		}
-
-		System.out.println("TOTAL APPS: " + apps_map.size());
-		System.out.println("XML_EDITTEXT: " + editText);
-		System.out.println("XML_IMAGEVIEW: " + imageView);
-		System.out.println("XML_IMAGEBUTTON: " + imageButton);
-		System.out.println("XML_BUTTON: " + button);
-		System.out.println("XML_HINT: " + hint);
-		System.out.println("XML_CONTENTDESCRIPTION: " + contentDescription);
-		System.out.println("XML_LABELFOR: " + labelFor);
-		System.out.println("XML_MINWIDTH: " + minWidth);
-		System.out.println("XML_MINHEIGHT: " + minHeight);
-		System.out.println("XML_AUTOSIZETEXTTYPE:" + autoSizeTextType);
-		System.out.println("XML_ACCESSIBILITYLIVEREGION: " + accessibilityLiveRegion);
 
 		redator.accessibilityReport(apps_map, listaDeAttAccXML, listaDeAttAcc);
 	}
