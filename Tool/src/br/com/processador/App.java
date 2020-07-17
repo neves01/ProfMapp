@@ -28,14 +28,6 @@ public class App {
 		this.elements = elements;
 	}
 
-	public boolean checkWidget(String id) {
-		for (Widget w : this.elements) {
-			if (w.getId().equalsIgnoreCase(id))
-				return true;
-		}
-		return false;
-	}
-
 	public String getManifest_path() {
 		return manifest_path;
 	}

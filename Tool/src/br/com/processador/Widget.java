@@ -50,8 +50,8 @@ public class Widget {
 		return false;
 	}
 
-	public void addAccessibility(String att) {
-		this.list_accessibility.add(new Accessibility(att));
+	public void addAccessibility(String att, String p) {
+		this.list_accessibility.add(new Accessibility(att, p));
 	}
 
 	public String getSource() {

@@ -2,6 +2,7 @@ package br.com.processador;
 
 import java.io.FileInputStream;
 import java.util.HashMap;
+import java.util.List;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -72,24 +73,29 @@ public class Analisador extends VoidVisitorAdapter {
 	/*
 	 * ACCESSIBILITY METHODS -----------------------------------------------
 	 */
-	public String visitarConteudoAccessibility(CompilationUnit cuClasse, String listaMetodos, App a) {
+	public String visitarConteudoAccessibility(CompilationUnit cuClasse, String listaMetodos, App a,
+			List<String> listaDePrincipios) {
 		Utilitarios uti = new Utilitarios();
 		String retorno = "";
 		String sensoresEncontrados = "";
 
+		int i = 0;
 		for (String stSensor : listaMetodos.toString().split(";")) {
 			retorno = uti.buscaPalavra(cuClasse.toString(), stSensor);
-
 			if (!retorno.equals("0")) {
 				sensoresEncontrados += "\n- " + stSensor;
 				Widget w = new Widget();
 				w.setId("-1");
 				w.setSource("SRC");
-				w.setTag("METHOD");
+				w.setTag("JAVA_METHOD");
+
 				Accessibility acc = new Accessibility(stSensor);
+				acc.setPrinciple(listaDePrincipios.get(i));
+				//System.out.println("\tmetodo: " + stSensor + " principio: " + acc.getPrinciple());
 				w.getAccessibility().add(acc);
 				a.getElements().add(w);
 			}
+			i++;
 		}
 		return sensoresEncontrados;
 	}

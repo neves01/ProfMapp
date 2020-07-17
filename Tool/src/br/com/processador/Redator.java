@@ -194,6 +194,249 @@ public class Redator {
 		return sb;
 	}
 
+	public StringBuilder buildHeader(List<String> listaDeAttAccXML, String listaDeAttAcc) {
+		StringBuilder sb = new StringBuilder();
+		// PROJETO
+		sb.append("APP;");
+
+		// PRODUCAO E TESTE
+		sb.append("DIR;");
+		sb.append("DIR_TEST;");
+		sb.append("ARQ_SRC;");
+		sb.append("TEST_SRC;");
+		sb.append("LINES_SRC;");
+		sb.append("TestLINES_SRC;");
+		sb.append("METH_SRC;");
+		sb.append("testMETH_SRC;");
+		sb.append("PCKG_SRC;");
+		sb.append("TEST_PCKG;");
+
+		// IDES
+		sb.append("AS_Studio;");
+		sb.append("Eclipse;");
+
+		// OUTRAS LINGUAGENS
+		sb.append("XML;");
+		sb.append("JS;");
+		sb.append("HTML;");
+		sb.append("CSS;");
+		sb.append("H;");
+		sb.append("C;");
+		sb.append("CPP;");
+		sb.append("RB;");
+		sb.append("PY;");
+		sb.append("SCALA;");
+
+		// OUTROS RECURSOS
+		sb.append("DIR_VALUES;");
+		sb.append("DIR_LAYOUT;");
+		sb.append("DIR_DRAWABLE;");
+		sb.append("ARQ_DRAWABLE;");
+		sb.append("ARQ_VALUES;");
+		sb.append("ARQ_LAYOUT;");
+
+		// RESIZE SCREEN
+		sb.append("INTSMALL;");
+		sb.append("INTNORMAL;");
+		sb.append("INTLARGE;");
+		sb.append("INTXLARGE;");
+		sb.append("INTLDPI;");
+		sb.append("INTMDPI;");
+		sb.append("INTHDPI;");
+		sb.append("INTXDPI;");
+		sb.append("INTXXDPI;");
+		sb.append("INTXXXDPI;");
+		sb.append("INTNODPI;");
+
+		// SUPPORT SCREEN
+		sb.append("isBlResizeable;");
+		sb.append("isBlSmallScreens;");
+		sb.append("isBlNormalScreens;");
+		sb.append("isBlLargeScreens;");
+		sb.append("isBlXlargeScreens;");
+		sb.append("isBlAnyDensity;");
+		sb.append("getIntRequiresSmallestWidthDp;");
+		sb.append("getIntCompatibleWidthLimitDp;");
+		sb.append("getIntLargestWidthLimitDp;");
+
+		// COMPATIBLE SCREEN
+		sb.append("getScreenSize;");
+		sb.append("getScreenDensity;");
+
+		// USES-CONFIGURATION
+		sb.append("isReqFiveWayNav;");
+		sb.append("isReqHardKeyboard;");
+		sb.append("getReqKeyboardType;");
+		sb.append("getReqNavigation;");
+		sb.append("getReqTouchScreen;");
+
+		// VERSION
+		sb.append("getMinSdkVersion;");
+		sb.append("getTargetSdkVersion;");
+		sb.append("getMaxSdkVersion;");
+
+		// ORIENTATION
+		sb.append("getIntPortrait;");
+		sb.append("getIntLandscape;");
+
+		// PERMISSIONS
+		sb.append("getNetworkState;");
+		sb.append("getNetworkState;");
+		sb.append("getBluetooth;");
+		sb.append("getBluetoothAdmin;");
+		sb.append("getInternet;");
+		sb.append("getChangeNetworkState;");
+		sb.append("getChangeWifiState;");
+
+		// SENSORS SRC
+		sb.append("getSrcAccelerometer;");
+		sb.append("getSrcAmbient_temperature;");
+		sb.append("getSrcGravity;");
+		sb.append("getSrcGyroscope;");
+		sb.append("getSrcLight;");
+		sb.append("getSrcLinear_acceleration;");
+		sb.append("getSrcMagnetic_field;");
+		sb.append("getSrcOrientation;");
+		sb.append("getSrcPressure;");
+		sb.append("getSrcProximity;");
+		sb.append("getSrcRelative_humidity;");
+		sb.append("getSrcRotation_vector;");
+		sb.append("getSrcTemperature;");
+		sb.append("getSrcGpsLocation;");
+
+		// SENSORS TESTE
+		sb.append("getTesteAccelerometer;");
+		sb.append("getTesteAmbient_temperature;");
+		sb.append("getTesteGravity;");
+		sb.append("getTesteGyroscope;");
+		sb.append("getTesteLight;");
+		sb.append("getTesteLinear_acceleration;");
+		sb.append("getTesteMagnetic_field;");
+		sb.append("getTesteOrientation;");
+		sb.append("getTestePressure;");
+		sb.append("getTesteProximity;");
+		sb.append("getTesteRelative_humidity;");
+		sb.append("getTesteRotation_vector;");
+		sb.append("getTesteTemperature;");
+		sb.append("getTesteGpsLocation;");
+
+		// SENSORS XML
+		sb.append("XMLgetStWifi;");
+		sb.append("XMLgetStBluetooth;");
+		sb.append("XMLgetStInternet;");
+		sb.append("XMLgetStNetwork;");
+		sb.append("XMLgetStLocation;");
+		sb.append("XMLgetStAccess_gps;");
+		sb.append("XMLgetStRecord_audio;");
+
+		// DESAFIOS SRC
+		sb.append("getSrcConnected;");
+		sb.append("getSrcGUI;");
+		sb.append("getSrcResources;");
+		sb.append("getSrcSensors;");
+		sb.append("getSrcMultiple;");
+
+		// DESAFIOS TESTE
+		sb.append("getTesteConnected;");
+		sb.append("getTesteGUI;");
+		sb.append("getTesteResources;");
+		sb.append("getTesteSensors;");
+		sb.append("getTesteMultiple;");
+
+		// FRAMEWORKS
+		sb.append("getStandroid;");
+		sb.append("getStjunit;");
+		sb.append("getStrobolectric;");
+		sb.append("getSthamcrest;");
+		sb.append("getStfest;");
+		sb.append("getStrobotium;");
+		sb.append("getStselenium;");
+		sb.append("getStespresso;");
+		sb.append("getStuiautomator;");
+		sb.append("getSteasymock;");
+		sb.append("getStmock;");
+		sb.append("getStmockito;");
+		sb.append("getStmonkeyrunner;");
+		sb.append("getStappium;");
+		sb.append("getSttestng;");
+		sb.append("getStjmeter;");
+		sb.append("getStselendroid;");
+
+		// LAYOUT
+		sb.append("getStFrameLayout;");
+		sb.append("getStLinearLayout;");
+		sb.append("getStTableLayout;");
+		sb.append("getStGridLayout;");
+		sb.append("getStRelativeLayout;");
+
+		// WIDGETS
+		sb.append("getStTextView;");
+		sb.append("getStButton;");
+		sb.append("getStRadioButton;");
+		sb.append("getStCheckBox;");
+		sb.append("getStSwitch;");
+		sb.append("getStToggleButton;");
+		sb.append("getStImageView;");
+		sb.append("getStProgressBar;");
+		sb.append("getStSeekBar;");
+		sb.append("getStRatingBar;");
+		sb.append("getStSpinner;");
+		sb.append("getStWebView;");
+		sb.append("getStText;");
+
+		// TEXT FIELDS
+		sb.append("getStEditText;");
+		sb.append("getStPersonName;");
+		sb.append("getStPassword;");
+		sb.append("getStPhone;");
+		sb.append("getStMultilineText;");
+		sb.append("getStNumber;");
+
+		sb.append("getStRadioGroup;");
+		sb.append("getStListView;");
+		sb.append("getStGridView;");
+
+		// EVENTOS GUI
+		sb.append("getOnswipetouchlistener;");
+		sb.append("getOndoubletaplistener;");
+		sb.append("getOnscalegesturelistener;");
+		sb.append("getShakelistener;");
+		sb.append("getOndraglistener;");
+		sb.append("getOnscrolllistener;");
+
+		// ATRIBUTOS DE ACESSIBILIDADE
+		for (String s_xml : listaDeAttAccXML)
+			if (!s_xml.equals("-"))
+				sb.append(s_xml + ";");
+
+		for (String s_src : listaDeAttAcc.split(";"))
+			if (!s_src.equals("-"))
+				sb.append(s_src + ";");
+
+		// QUANTIDADE TOTAL DE FEATURES DE ACESSIBILIDADE
+		sb.append("TOTAL_ACC_ATTRIBUTES;");
+
+		// QUANTIDADE DE TAG ACTIVITY
+		sb.append("ACTIVITIES;");
+
+		// SCORE
+		sb.append("SCORE_ACC_NORMALIZED;");
+
+		sb.append("XML_ATT;");
+		sb.append("SRC_ATT;");
+
+		sb.append("ATT_Perceivable;");
+		sb.append("ATT_Operable;");
+		sb.append("ATT_Understandable;");
+		sb.append("ATT_Robust;");
+
+		// LAST COLUMN
+		sb.append("\n");
+
+		return sb;
+
+	}
+
 	/*
 	 * ESCREVE CSV POR PROJETO - INFO TABULAR
 	 * -------------------------------------------------------------
@@ -227,7 +470,7 @@ public class Redator {
 				+ a.getDiretorio().getDirsDrawable().size() + ";");
 		sb.append(a.getArqsValues().size() + ";" + a.getArqsLayout().size() + ";" + a.getArqsDrawable().size() + ";");
 
-		// RESIZE SCREEN - RES
+		// RESIZE SCREEN
 		sb.append(r.getIntSmall() + ";" + r.getIntNormal() + ";" + r.getIntLarge() + ";" + r.getIntXlarge() + ";"
 				+ r.getIntLdpi() + ";" + r.getIntMdpi() + ";" + r.getIntHdpi() + ";" + r.getIntXhdpi() + ";"
 				+ r.getIntXxhdpi() + ";" + r.getIntXxxhdpi() + ";" + r.getIntNodpi() + ";");
@@ -294,7 +537,7 @@ public class Redator {
 		sb.append(f.getSteasymock() + ";" + f.getStmock() + ";" + f.getStmockito() + ";" + f.getStmonkeyrunner() + ";"
 				+ f.getStappium() + ";");
 		sb.append(f.getSttestng() + ";" + f.getStjmeter() + ";" + f.getStselendroid() + ";");
-		// f.getStspongycastle() + ";" + f.getStjersey() + ";" + f.getStroboguice()
+		// + f.getStspongycastle() + ";" + f.getStjersey() + ";" + f.getStroboguice());
 
 		// LAYOUT
 		sb.append(l.getStFrameLayout() + ";" + l.getStLinearLayout() + ";" + l.getStTableLayout() + ";"
@@ -318,21 +561,21 @@ public class Redator {
 		sb.append(d.getOnswipetouchlistener() + ";" + d.getOndoubletaplistener() + ";" + d.getOnscalegesturelistener()
 				+ ";" + d.getShakelistener() + ";" + d.getOndraglistener() + ";" + d.getOnscrolllistener() + ";");
 
-		// ACCESSIBILITY
-		int qtde_acc_total = 0;
-		int qtde = 0;
-		for (String s_xml : listaDeAttAccXML) {
-			qtde = count(app, "XML", s_xml);
-			qtde_acc_total += qtde;
-			sb.append(qtde + ";");
-		}
+		// ACCESSIBILITY XML ATTRIBUTES
+		for (String s_xml : listaDeAttAccXML)
+			if (!s_xml.equals("-"))
+				sb.append(count(app, "XML", s_xml) + ";");
 
-		for (String s_src : listaDeAttAcc.split(";")) {
-			qtde = count(app, "SRC", s_src);
-			qtde_acc_total += qtde;
-			sb.append(qtde + ";");
-		}
-		
+		// ACCESSIBILITY JAVA ATTRIBUTES
+		for (String s_src : listaDeAttAcc.split(";"))
+			if (!s_src.equals("-"))
+				sb.append(count(app, "SRC", s_src) + ";");
+
+		int qtde_acc_total = 0, total_XML = 0, total_SRC = 0;
+		total_XML = countSource(app, "XML");
+		total_SRC = countSource(app, "SRC");
+		qtde_acc_total = total_XML + total_SRC;
+
 		// QUANTIDADE TOTAL DE FEATURES DE ACESSIBILIDADE
 		sb.append(qtde_acc_total + ";");
 
@@ -344,8 +587,8 @@ public class Redator {
 			Document doc = builder.parse(app.getManifest_path());
 			NodeList nodes = doc.getDocumentElement().getElementsByTagName("activity");
 			qtde_act = nodes.getLength();
-			
-			// QUANTIDADE DE TELAS
+
+			// QUANTIDADE DE TAG ACTIVITY
 			sb.append(qtde_act + ";");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -355,9 +598,18 @@ public class Redator {
 		float score_normalized = -1;
 		if (qtde_act > 0)
 			score_normalized = (float) qtde_acc_total / qtde_act;
-		
+
 		sb.append(score_normalized + ";");
 
+		sb.append(total_XML + ";");
+		sb.append(total_SRC + ";");
+
+		sb.append(countPrinciple(app, "Perceivable") + ";");
+		sb.append(countPrinciple(app, "Operable") + ";");
+		sb.append(countPrinciple(app, "Understandable") + ";");
+		sb.append(countPrinciple(app, "Robust") + ";");
+
+		// LAST COLUMN
 		sb.append("\n");
 
 		return sb;
@@ -370,10 +622,35 @@ public class Redator {
 		return sb;
 	}
 
+	public int countSource(App app, String source) {
+		int counter = 0;
+		for (Widget w : app.getElements()) {
+			if (w.getSource().equals(source) && !w.getAccessibility().isEmpty()) {
+				for (Accessibility a : w.getAccessibility())
+					if (!a.getAttribute().equals("NONE"))
+						counter++;
+			}
+		}
+		return counter;
+	}
+
+	public int countPrinciple(App app, String principle) {
+		int counter = 0;
+		for (Widget w : app.getElements()) {
+			if (w != null && !w.getAccessibility().isEmpty()) {
+				for (Accessibility a : w.getAccessibility())
+					if (a.getPrinciple().equals(principle) && !a.getAttribute().equals("NONE"))
+						counter++;
+			}
+		}
+
+		return counter;
+	}
+
 	public int count(App a, String source, String attribute) {
 		int counter = 0;
 		for (Widget w : a.getElements()) {
-			if (w.attributeIsHere(attribute) && w.getSource().equals(source))
+			if (anyAccessibilityAttribute(a) && w.attributeIsHere(attribute) && w.getSource().equals(source))
 				counter++;
 		}
 
@@ -395,7 +672,6 @@ public class Redator {
 
 	public void accessibilityReport(List<App> apps_map, List<String> listaDeAttAccXML, String listaDeAttAcc) {
 		StringBuilder report = new StringBuilder();
-		int appWithoutAccessibilities = 0;
 		System.out.println(listaDeAttAcc);
 		for (App a : apps_map) {
 			report.append("------------------------------------------\n");

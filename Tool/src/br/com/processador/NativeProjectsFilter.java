@@ -1,5 +1,10 @@
 package br.com.processador;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -22,33 +27,67 @@ public class NativeProjectsFilter {
 	public static boolean isNative(Projeto project) {
 		var dirs = (new Diretorios()).mapearDirs(project);
 		var files = (new Arquivos()).mapearArqs(dirs);
-		int numberOfOtherSourceFiles = files.getArqsJS().size() 
-				+ files.getArqsHTML().size() + files.getArqsCSS().size() 
-				+ files.getArqsH().size() + files.getArqsC().size() 
-				+ files.getArqsCPP().size() + files.getArqsRb().size() 
-				+ files.getArqsPy().size() + files.getArqsScala().size();
+		int numberOfOtherSourceFiles = files.getArqsJS().size() + files.getArqsHTML().size() + files.getArqsCSS().size()
+				+ files.getArqsH().size() + files.getArqsC().size() + files.getArqsCPP().size()
+				+ files.getArqsRb().size() + files.getArqsPy().size() + files.getArqsScala().size();
 
 		// remove projects with Kotlin files (mixed with Java files)
-		return files.getArqsLayout().size() >= 1 
-				&& files.getArqsJavaSRC().size() >= 1
-				&& files.getArqsJavaSRC().size() > numberOfOtherSourceFiles 
-				&& files.getArqsKotlin().size() == 0;
+		return files.getArqsLayout().size() >= 1 && files.getArqsJavaSRC().size() >= 1
+				&& files.getArqsJavaSRC().size() > numberOfOtherSourceFiles && files.getArqsKotlin().size() == 0;
+	}
+
+	public static List<String> readLines(String filePath) {
+		List<String> lines = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+			String line;
+			while ((line = br.readLine()) != null) {
+				lines.add(line);
+			}
+
+			br.close();
+		} catch (Exception e) {
+			// e.printStackTrace();
+		}
+
+		return lines;
+	}
+
+	public static boolean contains(List<String> names, String file_name) {
+		for (String s : names)
+			if (s.toLowerCase().contains(file_name.toLowerCase()))
+				return true;
+		return false;
 	}
 
 	/**
 	 * @param args[0] should be a string related to the benchmark folder.
 	 */
 	public static void main(String[] args) {
-		if (args.length == 0) {
-			System.out.println("No benchmark folder provided.");
-			System.exit(0);
+		/*
+		 * if (args.length == 0) { System.out.println("No benchmark folder provided.");
+		 * System.exit(0); }
+		 */
+
+		String path = "/home/henrique/Experiment/filter-f-droid";
+
+		List<String> apps_native = readLines("/home/henrique/Experiment/filter-f-droid/nativos.txt");
+
+		for (File file : (new File(path)).listFiles()) {
+			if (file.isDirectory()) {
+				if (!contains(apps_native, file.getName())) {
+					File newFile = new File(path + "/" + file.getName() + ".remove");
+					file.renameTo(newFile);
+				}
+			}
 		}
 
-		var projects = (new Projeto()).listarProjetos(args[0]);
-		var nativeProjects = projects.stream()
-				.filter(NativeProjectsFilter::isNative)
-				.collect(Collectors.toList());
-		
+		System.exit(0);
+
+		var projects = (new Projeto()).listarProjetos(path);
+		var nativeProjects = projects.stream().filter(NativeProjectsFilter::isNative).collect(Collectors.toList());
+
 		nativeProjects.forEach(project -> System.out.println(project.getNome()));
 		System.out.println("Native apps: " + nativeProjects.size());
 		System.out.println("Non-native apps: " + (projects.size() - nativeProjects.size()));

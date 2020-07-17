@@ -19,7 +19,8 @@ public class Principal {
 
 			String line;
 			while ((line = br.readLine()) != null)
-				sb.append(line + ";");
+				if (!line.contains("-"))
+					sb.append(line + ";");
 
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -31,7 +32,7 @@ public class Principal {
 		return sb.toString();
 	}
 
-	public static List<String> feedAccessibilityList_XML(String filePath) {
+	public static List<String> feedList(String filePath) {
 		List<String> lines = new ArrayList<String>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -77,25 +78,27 @@ public class Principal {
 		/*
 		 * VARIAVEIS
 		 * ---------------------------------------------------------------------
-		 */
+		 */ // filter-f-droid/SAST_Apps
 
-		String repositorio = "/home/henrique/Experiment/filter-f-droid";
+		String repositorio = "/home/henrique/Experiment/filter-f-droid/SAST_Apps";
 		String listaDeAttAcc = feedAccessibilityList(
 				"/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_SRC.list");
-		List<String> listaDeAttAccXML = feedAccessibilityList_XML(
-				"/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_XML.list");
+		List<String> listaDeAttAccXML = feedList("/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_XML.list");
+		List<String> listaDePrincipios = feedList("/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_wcag.list");
 
 		/*
 		 * MAPEAR PROJETOS
 		 * ---------------------------------------------------------------------
 		 */
 
+		sbCSV.append(redator.buildHeader(listaDeAttAccXML, listaDeAttAcc));
+
 		for (Projeto p : projeto.listarProjetos(repositorio)) {
 			log = new StringBuilder();
 
 			App a = new App();
 			a.setPacka_name(p.getNome());
-			System.out.println("Entrando no projeto: " + p.getCaminho());
+			// System.out.println("Entrando no projeto: " + p.getCaminho());
 
 			diretorios = new Diretorios();
 			diretorios = diretorios.mapearDirs(p);
@@ -110,10 +113,10 @@ public class Principal {
 			sensores = sensores.mapearSensores(arquivos, apps_map, a);
 
 			arquivos.searchForAndroidManifest(a, new File(p.getCaminho()), 0);
-			System.out.println("MANIFEST: " + a.getManifest_path());
+			// System.out.println("MANIFEST: " + a.getManifest_path());
 
 			attributes_acc = new Attributes_Accessibility();
-			attributes_acc.mapearAccessibilityAttributes(arquivos, apps_map, a, listaDeAttAcc);
+			attributes_acc.mapearAccessibilityAttributes(arquivos, apps_map, a, listaDeAttAcc, listaDePrincipios);
 
 			frameworks = new Frameworks();
 			frameworks = frameworks.mapearFrameworks(arquivos);
@@ -129,7 +132,7 @@ public class Principal {
 
 			layouts = new Layouts();
 
-			layouts = layouts.mapearLayout(arquivos, apps_map, a, listaDeAttAccXML);
+			layouts = layouts.mapearLayout(arquivos, apps_map, a, listaDeAttAccXML, listaDePrincipios);
 			apps_map.add(a);
 
 			sbCSV.append(redator.escreverCSV(arquivos, desafios, sensores, frameworks, configuracao, recursos, metricas,
@@ -144,7 +147,7 @@ public class Principal {
 
 		// TODO: DESCOMENTAR
 		redator.escrita(sbCSV, "Relatorio.csv");
-		// redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
+		//redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
 		// redator.escrita(sbRelatorioDesafios, "RelatorioDesafios.csv");
 
 		redator.accessibilityReport(apps_map, listaDeAttAccXML, listaDeAttAcc);

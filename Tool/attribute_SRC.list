@@ -8,10 +8,10 @@ removeCaptioningChangeListener
 setScreenOrientation
 setRawInputType
 setKeyListener
-setKeyListener
+-
 setTransformationMethod
-setKeyListener
-setKeyListener
+-
+-
 setAutoText
 setEditable
 setCursorVisible
@@ -21,10 +21,10 @@ setAutoSizeTextTypeWithDefaults
 setTextSize
 setTextScaleX
 setAutoSizeTextTypeUniformWithConfiguration
-setAutoSizeTextTypeUniformWithConfiguration
+-
 setAutoSizeTextTypeUniformWithPresetSizes
 setLineSpacing
-setLineSpacing
+-
 setLetterSpacing
 setLayoutTransition
 setNextFocusForwardId

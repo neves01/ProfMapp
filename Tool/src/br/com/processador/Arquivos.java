@@ -221,7 +221,7 @@ public class Arquivos {
 			for (File child : directoryListing) {
 				if (controle != -1 && child.isFile() && child.getName().toLowerCase().contains("androidmanifest")) {
 					a.setManifest_path(child.getAbsolutePath());
-					System.out.println("Achei manifest no nível: " + controle);
+					// System.out.println("Achei manifest no nível: " + controle);
 					return;
 				}
 				if (child.isDirectory())
@@ -364,7 +364,7 @@ public class Arquivos {
 		for (int i = 0; i < listaArquivos.length; i++) {
 			if (listaArquivos[i].isFile()) {
 				if (listaArquivos[i].getName().equals("AndroidManifest.xml")) {
-					System.out.println("ACHEI MANIFESTO");
+					// System.out.println("ACHEI MANIFESTO");
 					arqsManifesto.add(fileRepositorio + "/" + listaArquivos[i].getName());
 					// flag = 1;
 				}

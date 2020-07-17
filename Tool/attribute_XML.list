@@ -1,4 +1,10 @@
 android:contentDescription
+-
+-
+-
+-
+-
+-
 android:screenOrientation
 android:inputType
 android:inputMethod
@@ -12,7 +18,7 @@ android:cursorVisible
 android:background
 android:textColor
 android:autoSizeTextType
-android:textSize="14sp"
+android:textSize
 android:textScaleX
 android:autoSizeMaxTextSize
 android:autoSizeMinTextSize
@@ -37,6 +43,8 @@ androind:screenReaderFocusable
 androind:focusable
 android:hint
 android:labelFor
+-
+-
 android:accessibilityLiveRegion
 android:importantForAccessibility
 android:hapticFeedbackEnabled

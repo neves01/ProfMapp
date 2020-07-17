@@ -267,7 +267,8 @@ public class Layouts {
 		this.stEditText = stEditText;
 	}
 
-	public Layouts mapearLayout(Arquivos arqs, List<App> apps_map, App a, List<String> lines) {
+	public Layouts mapearLayout(Arquivos arqs, List<App> apps_map, App a, List<String> lines,
+			List<String> listaDePrincipios) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		Layouts layouts = new Layouts();
 
@@ -383,14 +384,18 @@ public class Layouts {
 					w.setTag(e.getTagName());
 					w.setSource("XML");
 
+					int i = 0;
 					for (String s_att : lines) {
 						att = e.getAttribute(s_att);
-						if (!att.equals(""))
-							w.addAccessibility(s_att);
+						if (!att.equals("")) {
+							w.addAccessibility(s_att, listaDePrincipios.get(i));
+							//System.out.println("\t\t XML: " + s_att + " principle: " + listaDePrincipios.get(i));
+						}
+						i++;
 					}
 
 					if (w.getAccessibility() == null)
-						w.addAccessibility("NONE");
+						w.addAccessibility("NONE", "NONE");
 
 					a.getElements().add(w);
 
