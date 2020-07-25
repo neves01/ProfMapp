@@ -37,10 +37,10 @@ android:accessibilityTraversalBefore
 android:accessibilityTraversalAfter
 android:accessibilityHeading
 android:cursorVisible
-androind:minWidth
-androind:minHeight
-androind:screenReaderFocusable
-androind:focusable
+android:minWidth
+android:minHeight
+android:screenReaderFocusable
+android:focusable
 android:hint
 android:labelFor
 -

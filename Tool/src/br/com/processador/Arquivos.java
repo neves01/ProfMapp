@@ -1,7 +1,12 @@
 package br.com.processador;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /* CLASSE: REFERENTE AOS ARQUIVOS DO PROJETO
  * --------------------------------------------------*/
@@ -213,19 +218,50 @@ public class Arquivos {
 	public void setArqsKotlin(ArrayList<String> arqsKotlin) {
 		this.arqsKotlin = arqsKotlin;
 	}
+	
+	public static List<String> readFile (String filePath) {
+		List<String> lines = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+			String line;
+			while ((line = br.readLine()) != null) {
+				lines.add(line);
+			}
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return lines;
+	}
 
 	public void searchForAndroidManifest(App a, File dir, int controle) {
 		File[] directoryListing = dir.listFiles();
+		if (directoryListing == null)
+			return;
 
-		if (directoryListing != null) {
-			for (File child : directoryListing) {
-				if (controle != -1 && child.isFile() && child.getName().toLowerCase().contains("androidmanifest")) {
-					a.setManifest_path(child.getAbsolutePath());
-					// System.out.println("Achei manifest no nível: " + controle);
-					return;
+		for (File child : directoryListing) {
+			if (controle == -1)
+				return;
+
+			if (child.isDirectory())
+				searchForAndroidManifest(a, child, controle + 1);
+			else if (child.isFile() && child.getName().toLowerCase().contains("androidmanifest")) {
+				List<String> file = readFile(child.getAbsolutePath());
+				int achei = 0;
+				for (String s : file) {
+					if (s.contains("activity"))
+						achei = 1;
 				}
-				if (child.isDirectory())
-					searchForAndroidManifest(a, child, controle + 1);
+				if (achei == 0)
+					return;
+				a.setManifest_path(child.getAbsolutePath());
+				controle = -1;
+				return;
 			}
 		}
 	}
@@ -364,7 +400,6 @@ public class Arquivos {
 		for (int i = 0; i < listaArquivos.length; i++) {
 			if (listaArquivos[i].isFile()) {
 				if (listaArquivos[i].getName().equals("AndroidManifest.xml")) {
-					// System.out.println("ACHEI MANIFESTO");
 					arqsManifesto.add(fileRepositorio + "/" + listaArquivos[i].getName());
 					// flag = 1;
 				}
@@ -411,10 +446,12 @@ public class Arquivos {
 	public void listarArqsDrawable(String caminho) {
 		File fileRepositorio = new File(caminho);
 		File[] listaArquivos = fileRepositorio.listFiles();
+		int qtde = 0;
 		for (int i = 0; i < listaArquivos.length; i++) {
 			if (listaArquivos[i].isFile()) {
 				if (listaArquivos[i].getName().toLowerCase().endsWith(".xml")) {
 					arqsDrawable.add(fileRepositorio + "/" + listaArquivos[i].getName());
+					qtde++;
 				}
 			}
 		}

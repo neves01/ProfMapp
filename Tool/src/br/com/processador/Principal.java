@@ -21,7 +21,6 @@ public class Principal {
 			while ((line = br.readLine()) != null)
 				if (!line.contains("-"))
 					sb.append(line + ";");
-
 			br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

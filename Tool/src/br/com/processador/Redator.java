@@ -10,16 +10,15 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class Redator {
+	static String delimiter = ",";
 
 	/*
 	 * ESCREVE ARQUIVO TEXTO
@@ -197,238 +196,238 @@ public class Redator {
 	public StringBuilder buildHeader(List<String> listaDeAttAccXML, String listaDeAttAcc) {
 		StringBuilder sb = new StringBuilder();
 		// PROJETO
-		sb.append("APP;");
+		sb.append("APP" + delimiter);
 
 		// PRODUCAO E TESTE
-		sb.append("DIR;");
-		sb.append("DIR_TEST;");
-		sb.append("ARQ_SRC;");
-		sb.append("TEST_SRC;");
-		sb.append("LINES_SRC;");
-		sb.append("TestLINES_SRC;");
-		sb.append("METH_SRC;");
-		sb.append("testMETH_SRC;");
-		sb.append("PCKG_SRC;");
-		sb.append("TEST_PCKG;");
+		sb.append("DIR" + delimiter);
+		sb.append("DIR_TEST" + delimiter);
+		sb.append("ARQ_SRC" + delimiter);
+		sb.append("TEST_SRC" + delimiter);
+		sb.append("LINES_SRC" + delimiter);
+		sb.append("TestLINES_SRC" + delimiter);
+		sb.append("METH_SRC" + delimiter);
+		sb.append("testMETH_SRC" + delimiter);
+		sb.append("PCKG_SRC" + delimiter);
+		sb.append("TEST_PCKG" + delimiter);
 
 		// IDES
-		sb.append("AS_Studio;");
-		sb.append("Eclipse;");
+		sb.append("AS_Studio" + delimiter);
+		sb.append("Eclipse" + delimiter);
 
 		// OUTRAS LINGUAGENS
-		sb.append("XML;");
-		sb.append("JS;");
-		sb.append("HTML;");
-		sb.append("CSS;");
-		sb.append("H;");
-		sb.append("C;");
-		sb.append("CPP;");
-		sb.append("RB;");
-		sb.append("PY;");
-		sb.append("SCALA;");
+		sb.append("XML" + delimiter);
+		sb.append("JS" + delimiter);
+		sb.append("HTML" + delimiter);
+		sb.append("CSS" + delimiter);
+		sb.append("H" + delimiter);
+		sb.append("C" + delimiter);
+		sb.append("CPP" + delimiter);
+		sb.append("RB" + delimiter);
+		sb.append("PY" + delimiter);
+		sb.append("SCALA" + delimiter);
 
 		// OUTROS RECURSOS
-		sb.append("DIR_VALUES;");
-		sb.append("DIR_LAYOUT;");
-		sb.append("DIR_DRAWABLE;");
-		sb.append("ARQ_DRAWABLE;");
-		sb.append("ARQ_VALUES;");
-		sb.append("ARQ_LAYOUT;");
+		sb.append("DIR_VALUES" + delimiter);
+		sb.append("DIR_LAYOUT" + delimiter);
+		sb.append("DIR_DRAWABLE" + delimiter);
+		sb.append("ARQ_DRAWABLE" + delimiter);
+		sb.append("ARQ_VALUES" + delimiter);
+		sb.append("ARQ_LAYOUT" + delimiter);
 
 		// RESIZE SCREEN
-		sb.append("INTSMALL;");
-		sb.append("INTNORMAL;");
-		sb.append("INTLARGE;");
-		sb.append("INTXLARGE;");
-		sb.append("INTLDPI;");
-		sb.append("INTMDPI;");
-		sb.append("INTHDPI;");
-		sb.append("INTXDPI;");
-		sb.append("INTXXDPI;");
-		sb.append("INTXXXDPI;");
-		sb.append("INTNODPI;");
+		sb.append("INTSMALL" + delimiter);
+		sb.append("INTNORMAL" + delimiter);
+		sb.append("INTLARGE" + delimiter);
+		sb.append("INTXLARGE" + delimiter);
+		sb.append("INTLDPI" + delimiter);
+		sb.append("INTMDPI" + delimiter);
+		sb.append("INTHDPI" + delimiter);
+		sb.append("INTXDPI" + delimiter);
+		sb.append("INTXXDPI" + delimiter);
+		sb.append("INTXXXDPI" + delimiter);
+		sb.append("INTNODPI" + delimiter);
 
 		// SUPPORT SCREEN
-		sb.append("isBlResizeable;");
-		sb.append("isBlSmallScreens;");
-		sb.append("isBlNormalScreens;");
-		sb.append("isBlLargeScreens;");
-		sb.append("isBlXlargeScreens;");
-		sb.append("isBlAnyDensity;");
-		sb.append("getIntRequiresSmallestWidthDp;");
-		sb.append("getIntCompatibleWidthLimitDp;");
-		sb.append("getIntLargestWidthLimitDp;");
+		sb.append("isBlResizeable" + delimiter);
+		sb.append("isBlSmallScreens" + delimiter);
+		sb.append("isBlNormalScreens" + delimiter);
+		sb.append("isBlLargeScreens" + delimiter);
+		sb.append("isBlXlargeScreens" + delimiter);
+		sb.append("isBlAnyDensity" + delimiter);
+		sb.append("getIntRequiresSmallestWidthDp" + delimiter);
+		sb.append("getIntCompatibleWidthLimitDp" + delimiter);
+		sb.append("getIntLargestWidthLimitDp" + delimiter);
 
 		// COMPATIBLE SCREEN
-		sb.append("getScreenSize;");
-		sb.append("getScreenDensity;");
+		sb.append("getScreenSize" + delimiter);
+		sb.append("getScreenDensity" + delimiter);
 
 		// USES-CONFIGURATION
-		sb.append("isReqFiveWayNav;");
-		sb.append("isReqHardKeyboard;");
-		sb.append("getReqKeyboardType;");
-		sb.append("getReqNavigation;");
-		sb.append("getReqTouchScreen;");
+		sb.append("isReqFiveWayNav" + delimiter);
+		sb.append("isReqHardKeyboard" + delimiter);
+		sb.append("getReqKeyboardType" + delimiter);
+		sb.append("getReqNavigation" + delimiter);
+		sb.append("getReqTouchScreen" + delimiter);
 
 		// VERSION
-		sb.append("getMinSdkVersion;");
-		sb.append("getTargetSdkVersion;");
-		sb.append("getMaxSdkVersion;");
+		sb.append("getMinSdkVersion" + delimiter);
+		sb.append("getTargetSdkVersion" + delimiter);
+		sb.append("getMaxSdkVersion" + delimiter);
 
 		// ORIENTATION
-		sb.append("getIntPortrait;");
-		sb.append("getIntLandscape;");
+		sb.append("getIntPortrait" + delimiter);
+		sb.append("getIntLandscape" + delimiter);
 
 		// PERMISSIONS
-		sb.append("getNetworkState;");
-		sb.append("getNetworkState;");
-		sb.append("getBluetooth;");
-		sb.append("getBluetoothAdmin;");
-		sb.append("getInternet;");
-		sb.append("getChangeNetworkState;");
-		sb.append("getChangeWifiState;");
+		sb.append("getNetworkState" + delimiter);
+		sb.append("getNetworkState" + delimiter);
+		sb.append("getBluetooth" + delimiter);
+		sb.append("getBluetoothAdmin" + delimiter);
+		sb.append("getInternet" + delimiter);
+		sb.append("getChangeNetworkState" + delimiter);
+		sb.append("getChangeWifiState" + delimiter);
 
 		// SENSORS SRC
-		sb.append("getSrcAccelerometer;");
-		sb.append("getSrcAmbient_temperature;");
-		sb.append("getSrcGravity;");
-		sb.append("getSrcGyroscope;");
-		sb.append("getSrcLight;");
-		sb.append("getSrcLinear_acceleration;");
-		sb.append("getSrcMagnetic_field;");
-		sb.append("getSrcOrientation;");
-		sb.append("getSrcPressure;");
-		sb.append("getSrcProximity;");
-		sb.append("getSrcRelative_humidity;");
-		sb.append("getSrcRotation_vector;");
-		sb.append("getSrcTemperature;");
-		sb.append("getSrcGpsLocation;");
+		sb.append("getSrcAccelerometer" + delimiter);
+		sb.append("getSrcAmbient_temperature" + delimiter);
+		sb.append("getSrcGravity" + delimiter);
+		sb.append("getSrcGyroscope" + delimiter);
+		sb.append("getSrcLight" + delimiter);
+		sb.append("getSrcLinear_acceleration" + delimiter);
+		sb.append("getSrcMagnetic_field" + delimiter);
+		sb.append("getSrcOrientation" + delimiter);
+		sb.append("getSrcPressure" + delimiter);
+		sb.append("getSrcProximity" + delimiter);
+		sb.append("getSrcRelative_humidity" + delimiter);
+		sb.append("getSrcRotation_vector" + delimiter);
+		sb.append("getSrcTemperature" + delimiter);
+		sb.append("getSrcGpsLocation" + delimiter);
 
 		// SENSORS TESTE
-		sb.append("getTesteAccelerometer;");
-		sb.append("getTesteAmbient_temperature;");
-		sb.append("getTesteGravity;");
-		sb.append("getTesteGyroscope;");
-		sb.append("getTesteLight;");
-		sb.append("getTesteLinear_acceleration;");
-		sb.append("getTesteMagnetic_field;");
-		sb.append("getTesteOrientation;");
-		sb.append("getTestePressure;");
-		sb.append("getTesteProximity;");
-		sb.append("getTesteRelative_humidity;");
-		sb.append("getTesteRotation_vector;");
-		sb.append("getTesteTemperature;");
-		sb.append("getTesteGpsLocation;");
+		sb.append("getTesteAccelerometer" + delimiter);
+		sb.append("getTesteAmbient_temperature" + delimiter);
+		sb.append("getTesteGravity" + delimiter);
+		sb.append("getTesteGyroscope" + delimiter);
+		sb.append("getTesteLight" + delimiter);
+		sb.append("getTesteLinear_acceleration" + delimiter);
+		sb.append("getTesteMagnetic_field" + delimiter);
+		sb.append("getTesteOrientation" + delimiter);
+		sb.append("getTestePressure" + delimiter);
+		sb.append("getTesteProximity" + delimiter);
+		sb.append("getTesteRelative_humidity" + delimiter);
+		sb.append("getTesteRotation_vector" + delimiter);
+		sb.append("getTesteTemperature" + delimiter);
+		sb.append("getTesteGpsLocation" + delimiter);
 
 		// SENSORS XML
-		sb.append("XMLgetStWifi;");
-		sb.append("XMLgetStBluetooth;");
-		sb.append("XMLgetStInternet;");
-		sb.append("XMLgetStNetwork;");
-		sb.append("XMLgetStLocation;");
-		sb.append("XMLgetStAccess_gps;");
-		sb.append("XMLgetStRecord_audio;");
+		sb.append("XMLgetStWifi" + delimiter);
+		sb.append("XMLgetStBluetooth" + delimiter);
+		sb.append("XMLgetStInternet" + delimiter);
+		sb.append("XMLgetStNetwork" + delimiter);
+		sb.append("XMLgetStLocation" + delimiter);
+		sb.append("XMLgetStAccess_gps" + delimiter);
+		sb.append("XMLgetStRecord_audio" + delimiter);
 
 		// DESAFIOS SRC
-		sb.append("getSrcConnected;");
-		sb.append("getSrcGUI;");
-		sb.append("getSrcResources;");
-		sb.append("getSrcSensors;");
-		sb.append("getSrcMultiple;");
+		sb.append("getSrcConnected" + delimiter);
+		sb.append("getSrcGUI" + delimiter);
+		sb.append("getSrcResources" + delimiter);
+		sb.append("getSrcSensors" + delimiter);
+		sb.append("getSrcMultiple" + delimiter);
 
 		// DESAFIOS TESTE
-		sb.append("getTesteConnected;");
-		sb.append("getTesteGUI;");
-		sb.append("getTesteResources;");
-		sb.append("getTesteSensors;");
-		sb.append("getTesteMultiple;");
+		sb.append("getTesteConnected" + delimiter);
+		sb.append("getTesteGUI" + delimiter);
+		sb.append("getTesteResources" + delimiter);
+		sb.append("getTesteSensors" + delimiter);
+		sb.append("getTesteMultiple" + delimiter);
 
 		// FRAMEWORKS
-		sb.append("getStandroid;");
-		sb.append("getStjunit;");
-		sb.append("getStrobolectric;");
-		sb.append("getSthamcrest;");
-		sb.append("getStfest;");
-		sb.append("getStrobotium;");
-		sb.append("getStselenium;");
-		sb.append("getStespresso;");
-		sb.append("getStuiautomator;");
-		sb.append("getSteasymock;");
-		sb.append("getStmock;");
-		sb.append("getStmockito;");
-		sb.append("getStmonkeyrunner;");
-		sb.append("getStappium;");
-		sb.append("getSttestng;");
-		sb.append("getStjmeter;");
-		sb.append("getStselendroid;");
+		sb.append("getStandroid" + delimiter);
+		sb.append("getStjunit" + delimiter);
+		sb.append("getStrobolectric" + delimiter);
+		sb.append("getSthamcrest" + delimiter);
+		sb.append("getStfest" + delimiter);
+		sb.append("getStrobotium" + delimiter);
+		sb.append("getStselenium" + delimiter);
+		sb.append("getStespresso" + delimiter);
+		sb.append("getStuiautomator" + delimiter);
+		sb.append("getSteasymock" + delimiter);
+		sb.append("getStmock" + delimiter);
+		sb.append("getStmockito" + delimiter);
+		sb.append("getStmonkeyrunner" + delimiter);
+		sb.append("getStappium" + delimiter);
+		sb.append("getSttestng" + delimiter);
+		sb.append("getStjmeter" + delimiter);
+		sb.append("getStselendroid" + delimiter);
 
 		// LAYOUT
-		sb.append("getStFrameLayout;");
-		sb.append("getStLinearLayout;");
-		sb.append("getStTableLayout;");
-		sb.append("getStGridLayout;");
-		sb.append("getStRelativeLayout;");
+		sb.append("getStFrameLayout" + delimiter);
+		sb.append("getStLinearLayout" + delimiter);
+		sb.append("getStTableLayout" + delimiter);
+		sb.append("getStGridLayout" + delimiter);
+		sb.append("getStRelativeLayout" + delimiter);
 
 		// WIDGETS
-		sb.append("getStTextView;");
-		sb.append("getStButton;");
-		sb.append("getStRadioButton;");
-		sb.append("getStCheckBox;");
-		sb.append("getStSwitch;");
-		sb.append("getStToggleButton;");
-		sb.append("getStImageView;");
-		sb.append("getStProgressBar;");
-		sb.append("getStSeekBar;");
-		sb.append("getStRatingBar;");
-		sb.append("getStSpinner;");
-		sb.append("getStWebView;");
-		sb.append("getStText;");
+		sb.append("getStTextView" + delimiter);
+		sb.append("getStButton" + delimiter);
+		sb.append("getStRadioButton" + delimiter);
+		sb.append("getStCheckBox" + delimiter);
+		sb.append("getStSwitch" + delimiter);
+		sb.append("getStToggleButton" + delimiter);
+		sb.append("getStImageView" + delimiter);
+		sb.append("getStProgressBar" + delimiter);
+		sb.append("getStSeekBar" + delimiter);
+		sb.append("getStRatingBar" + delimiter);
+		sb.append("getStSpinner" + delimiter);
+		sb.append("getStWebView" + delimiter);
+		sb.append("getStText" + delimiter);
 
 		// TEXT FIELDS
-		sb.append("getStEditText;");
-		sb.append("getStPersonName;");
-		sb.append("getStPassword;");
-		sb.append("getStPhone;");
-		sb.append("getStMultilineText;");
-		sb.append("getStNumber;");
+		sb.append("getStEditText" + delimiter);
+		sb.append("getStPersonName" + delimiter);
+		sb.append("getStPassword" + delimiter);
+		sb.append("getStPhone" + delimiter);
+		sb.append("getStMultilineText" + delimiter);
+		sb.append("getStNumber" + delimiter);
 
-		sb.append("getStRadioGroup;");
-		sb.append("getStListView;");
-		sb.append("getStGridView;");
+		sb.append("getStRadioGroup" + delimiter);
+		sb.append("getStListView" + delimiter);
+		sb.append("getStGridView" + delimiter);
 
 		// EVENTOS GUI
-		sb.append("getOnswipetouchlistener;");
-		sb.append("getOndoubletaplistener;");
-		sb.append("getOnscalegesturelistener;");
-		sb.append("getShakelistener;");
-		sb.append("getOndraglistener;");
-		sb.append("getOnscrolllistener;");
+		sb.append("getOnswipetouchlistener" + delimiter);
+		sb.append("getOndoubletaplistener" + delimiter);
+		sb.append("getOnscalegesturelistener" + delimiter);
+		sb.append("getShakelistener" + delimiter);
+		sb.append("getOndraglistener" + delimiter);
+		sb.append("getOnscrolllistener" + delimiter);
 
 		// ATRIBUTOS DE ACESSIBILIDADE
 		for (String s_xml : listaDeAttAccXML)
 			if (!s_xml.equals("-"))
-				sb.append(s_xml + ";");
+				sb.append("XML_" + s_xml + delimiter);
 
 		for (String s_src : listaDeAttAcc.split(";"))
 			if (!s_src.equals("-"))
-				sb.append(s_src + ";");
+				sb.append("SRC_" + s_src + delimiter);
 
 		// QUANTIDADE TOTAL DE FEATURES DE ACESSIBILIDADE
-		sb.append("TOTAL_ACC_ATTRIBUTES;");
+		sb.append("TOTAL_ACC_ATTRIBUTES" + delimiter);
 
 		// QUANTIDADE DE TAG ACTIVITY
-		sb.append("ACTIVITIES;");
+		sb.append("ACTIVITIES" + delimiter);
 
 		// SCORE
-		sb.append("SCORE_ACC_NORMALIZED;");
+		sb.append("SCORE_ACC_NORMALIZED" + delimiter);
 
-		sb.append("XML_ATT;");
-		sb.append("SRC_ATT;");
+		sb.append("XML_ATT" + delimiter);
+		sb.append("SRC_ATT" + delimiter);
 
-		sb.append("ATT_Perceivable;");
-		sb.append("ATT_Operable;");
-		sb.append("ATT_Understandable;");
-		sb.append("ATT_Robust;");
+		sb.append("ATT_Perceivable" + delimiter);
+		sb.append("ATT_Operable" + delimiter);
+		sb.append("ATT_Understandable" + delimiter);
+		sb.append("ATT_Robust");
 
 		// LAST COLUMN
 		sb.append("\n");
@@ -447,137 +446,153 @@ public class Redator {
 		StringBuilder sb = new StringBuilder();
 
 		// PROJETO
-		sb.append(a.getDiretorio().getProjeto().getNome().toLowerCase() + ";");
+		sb.append(a.getDiretorio().getProjeto().getNome().toLowerCase() + delimiter);
 
 		// PRODUCAO E TESTE
-		sb.append(a.getDiretorio().getDirsSRC().size() + ";" + a.getDiretorio().getDirsTeste().size() + ";");
-		sb.append(a.getArqsJavaSRC().size() + ";" + a.getArqsJavaTeste().size() + ";");
-		sb.append(m.getLinhasSRC() + ";" + m.getLinhasTeste() + ";");
-		sb.append(d.getContadorDeMetodosSRC() + ";" + d.getContadorDeMetodosTeste() + ";");
-		sb.append(uti.contaSB(f.getPacotesSRC()) + ";" + uti.contaSB(f.getPacotesTeste()) + ";");
+		sb.append(
+				a.getDiretorio().getDirsSRC().size() + delimiter + a.getDiretorio().getDirsTeste().size() + delimiter);
+		sb.append(a.getArqsJavaSRC().size() + delimiter + a.getArqsJavaTeste().size() + delimiter);
+		sb.append(m.getLinhasSRC() + delimiter + m.getLinhasTeste() + delimiter);
+		sb.append(d.getContadorDeMetodosSRC() + delimiter + d.getContadorDeMetodosTeste() + delimiter);
+		sb.append(uti.contaSB(f.getPacotesSRC()) + delimiter + uti.contaSB(f.getPacotesTeste()) + delimiter);
 
 		// IDES
-		sb.append(a.getDiretorio().getArqsAStudio().size() + ";" + a.getDiretorio().getArqsEclipse().size() + ";");
+		sb.append(a.getDiretorio().getArqsAStudio().size() + delimiter + a.getDiretorio().getArqsEclipse().size()
+				+ delimiter);
 
 		// OUTRAS LINGUAGENS
-		sb.append(a.getArqsXML().size() + ";" + a.getArqsJS().size() + ";" + a.getArqsHTML().size() + ";"
-				+ a.getArqsCSS().size() + ";" + a.getArqsH().size() + ";" + a.getArqsC().size() + ";"
-				+ a.getArqsCPP().size() + ";" + a.getArqsRb().size() + ";" + a.getArqsPy().size() + ";"
-				+ a.getArqsScala().size() + ";");
+		sb.append(a.getArqsXML().size() + delimiter + a.getArqsJS().size() + delimiter + a.getArqsHTML().size()
+				+ delimiter + a.getArqsCSS().size() + delimiter + a.getArqsH().size() + delimiter + a.getArqsC().size()
+				+ delimiter + a.getArqsCPP().size() + delimiter + a.getArqsRb().size() + delimiter
+				+ a.getArqsPy().size() + delimiter + a.getArqsScala().size() + delimiter);
 
 		// RECURSOS (VALUES (-1) IGNORA PASTA PRINCIPAL) - NÃO DEU CERTO - REVER
-		sb.append(a.getDiretorio().getDirsValues().size() + ";" + a.getDiretorio().getDirsLayout().size() + ";"
-				+ a.getDiretorio().getDirsDrawable().size() + ";");
-		sb.append(a.getArqsValues().size() + ";" + a.getArqsLayout().size() + ";" + a.getArqsDrawable().size() + ";");
+		sb.append(a.getDiretorio().getDirsValues().size() + delimiter + a.getDiretorio().getDirsLayout().size()
+				+ delimiter + a.getDiretorio().getDirsDrawable().size() + delimiter);
+
+		// int aGetArqsLayoutSize = a.searchForLayoutFiles(a);
+		sb.append(a.getArqsDrawable().size() + delimiter + a.getArqsValues().size() + delimiter
+				+ a.getArqsLayout().size() + delimiter);
 
 		// RESIZE SCREEN
-		sb.append(r.getIntSmall() + ";" + r.getIntNormal() + ";" + r.getIntLarge() + ";" + r.getIntXlarge() + ";"
-				+ r.getIntLdpi() + ";" + r.getIntMdpi() + ";" + r.getIntHdpi() + ";" + r.getIntXhdpi() + ";"
-				+ r.getIntXxhdpi() + ";" + r.getIntXxxhdpi() + ";" + r.getIntNodpi() + ";");
+		sb.append(r.getIntSmall() + delimiter + r.getIntNormal() + delimiter + r.getIntLarge() + delimiter
+				+ r.getIntXlarge() + delimiter + r.getIntLdpi() + delimiter + r.getIntMdpi() + delimiter
+				+ r.getIntHdpi() + delimiter + r.getIntXhdpi() + delimiter + r.getIntXxhdpi() + delimiter
+				+ r.getIntXxxhdpi() + delimiter + r.getIntNodpi() + delimiter);
 
 		// USES-FEATURE
-		// sb.append(c.getName() + ";" + uti.converteBoleano(c.isRequired()) + ";" +
-		// c.getGlEsVersion() + ";");
+		// sb.append(c.getName() + delimiter + uti.converteBoleano(c.isRequired()) +
+		// delimiter +
+		// c.getGlEsVersion() + delimiter);
 
 		// SUPPORT SCREEN
-		sb.append(uti.converteBoleano(c.isBlResizeable()) + ";" + uti.converteBoleano(c.isBlSmallScreens()) + ";"
-				+ uti.converteBoleano(c.isBlNormalScreens()) + ";");
-		sb.append(c.isBlLargeScreens() + ";" + c.isBlXlargeScreens() + ";" + uti.converteBoleano(c.isBlAnyDensity())
-				+ ";" + c.getIntRequiresSmallestWidthDp() + ";" + c.getIntCompatibleWidthLimitDp() + ";"
-				+ c.getIntLargestWidthLimitDp() + ";");
+		sb.append(uti.converteBoleano(c.isBlResizeable()) + delimiter + uti.converteBoleano(c.isBlSmallScreens())
+				+ delimiter + uti.converteBoleano(c.isBlNormalScreens()) + delimiter);
+		sb.append(c.isBlLargeScreens() + delimiter + c.isBlXlargeScreens() + delimiter
+				+ uti.converteBoleano(c.isBlAnyDensity()) + delimiter + c.getIntRequiresSmallestWidthDp() + delimiter
+				+ c.getIntCompatibleWidthLimitDp() + delimiter + c.getIntLargestWidthLimitDp() + delimiter);
 
 		// COMPATIBLE SCREEN
-		sb.append(c.getScreenSize() + ";" + c.getScreenDensity() + ";");
+		sb.append(c.getScreenSize() + delimiter + c.getScreenDensity() + delimiter);
 
 		// USES-CONFIGURATION
-		sb.append(uti.converteBoleano(c.isReqFiveWayNav()) + ";" + uti.converteBoleano(c.isReqHardKeyboard()) + ";"
-				+ c.getReqKeyboardType() + ";" + c.getReqNavigation() + ";" + c.getReqTouchScreen() + ";");
+		sb.append(uti.converteBoleano(c.isReqFiveWayNav()) + delimiter + uti.converteBoleano(c.isReqHardKeyboard())
+				+ delimiter + c.getReqKeyboardType() + delimiter + c.getReqNavigation() + delimiter
+				+ c.getReqTouchScreen() + delimiter);
 
 		// VERSION
-		sb.append(c.getMinSdkVersion() + ";" + c.getTargetSdkVersion() + ";" + c.getMaxSdkVersion() + ";");
+		sb.append(c.getMinSdkVersion() + delimiter + c.getTargetSdkVersion() + delimiter + c.getMaxSdkVersion()
+				+ delimiter);
 
 		// ORIENTATION
-		sb.append(c.getIntPortrait() + ";" + c.getIntLandscape() + ";");
+		sb.append(c.getIntPortrait() + delimiter + c.getIntLandscape() + delimiter);
 
 		// PERMISSIONS
-		sb.append(c.getNetworkState() + ";" + c.getNetworkState() + ";" + c.getBluetooth() + ";" + c.getBluetoothAdmin()
-				+ ";" + c.getInternet() + ";" + c.getChangeNetworkState() + ";" + c.getChangeWifiState() + ";");
+		sb.append(c.getNetworkState() + delimiter + c.getNetworkState() + delimiter + c.getBluetooth() + delimiter
+				+ c.getBluetoothAdmin() + delimiter + c.getInternet() + delimiter + c.getChangeNetworkState()
+				+ delimiter + c.getChangeWifiState() + delimiter);
 
 		// SENSORS SRC
-		sb.append(s.getSrcAccelerometer() + ";" + s.getSrcAmbient_temperature() + ";" + s.getSrcGravity() + ";"
-				+ s.getSrcGyroscope() + ";" + s.getSrcLight() + ";" + s.getSrcLinear_acceleration() + ";"
-				+ s.getSrcMagnetic_field() + ";" + s.getSrcOrientation() + ";" + s.getSrcPressure() + ";"
-				+ s.getSrcProximity() + ";" + s.getSrcRelative_humidity() + ";" + s.getSrcRotation_vector() + ";"
-				+ s.getSrcTemperature() + ";" + s.getSrcGpsLocation() + ";");
+		sb.append(s.getSrcAccelerometer() + delimiter + s.getSrcAmbient_temperature() + delimiter + s.getSrcGravity()
+				+ delimiter + s.getSrcGyroscope() + delimiter + s.getSrcLight() + delimiter
+				+ s.getSrcLinear_acceleration() + delimiter + s.getSrcMagnetic_field() + delimiter
+				+ s.getSrcOrientation() + delimiter + s.getSrcPressure() + delimiter + s.getSrcProximity() + delimiter
+				+ s.getSrcRelative_humidity() + delimiter + s.getSrcRotation_vector() + delimiter
+				+ s.getSrcTemperature() + delimiter + s.getSrcGpsLocation() + delimiter);
 
 		// SENSORS TESTE
-		sb.append(s.getTesteAccelerometer() + ";" + s.getTesteAmbient_temperature() + ";" + s.getTesteGravity() + ";"
-				+ s.getTesteGyroscope() + ";" + s.getTesteLight() + ";" + s.getTesteLinear_acceleration() + ";"
-				+ s.getTesteMagnetic_field() + ";" + s.getTesteOrientation() + ";" + s.getTestePressure() + ";"
-				+ s.getTesteProximity() + ";" + s.getTesteRelative_humidity() + ";" + s.getTesteRotation_vector() + ";"
-				+ s.getTesteTemperature() + ";" + s.getTesteGpsLocation() + ";");
+		sb.append(s.getTesteAccelerometer() + delimiter + s.getTesteAmbient_temperature() + delimiter
+				+ s.getTesteGravity() + delimiter + s.getTesteGyroscope() + delimiter + s.getTesteLight() + delimiter
+				+ s.getTesteLinear_acceleration() + delimiter + s.getTesteMagnetic_field() + delimiter
+				+ s.getTesteOrientation() + delimiter + s.getTestePressure() + delimiter + s.getTesteProximity()
+				+ delimiter + s.getTesteRelative_humidity() + delimiter + s.getTesteRotation_vector() + delimiter
+				+ s.getTesteTemperature() + delimiter + s.getTesteGpsLocation() + delimiter);
 
 		// SENSORS XML
-		sb.append(c.getStWifi() + ";" + c.getStBluetooth() + ";" + c.getStInternet() + ";" + c.getStNetwork() + ";"
-				+ c.getStLocation() + ";" + c.getStAccess_gps() + ";" + c.getStRecord_audio() + ";");
+		sb.append(c.getStWifi() + delimiter + c.getStBluetooth() + delimiter + c.getStInternet() + delimiter
+				+ c.getStNetwork() + delimiter + c.getStLocation() + delimiter + c.getStAccess_gps() + delimiter
+				+ c.getStRecord_audio() + delimiter);
 
 		// DESAFIOS SRC
-		sb.append(d.getSrcConnected() + ";" + d.getSrcGUI() + ";" + d.getSrcResources() + ";" + d.getSrcSensors() + ";"
-				+ d.getSrcMultiple() + ";");
+		sb.append(d.getSrcConnected() + delimiter + d.getSrcGUI() + delimiter + d.getSrcResources() + delimiter
+				+ d.getSrcSensors() + delimiter + d.getSrcMultiple() + delimiter);
 
 		// DESAFIOS TESTE
-		sb.append(d.getTesteConnected() + ";" + d.getTesteGUI() + ";" + d.getTesteResources() + ";"
-				+ d.getTesteSensors() + ";" + d.getTesteMultiple() + ";");
+		sb.append(d.getTesteConnected() + delimiter + d.getTesteGUI() + delimiter + d.getTesteResources() + delimiter
+				+ d.getTesteSensors() + delimiter + d.getTesteMultiple() + delimiter);
 
 		// FRAMEWORKS
-		sb.append(f.getStandroid() + ";" + f.getStjunit() + ";" + f.getStrobolectric() + ";" + f.getSthamcrest() + ";"
-				+ f.getStfest() + ";");
-		sb.append(f.getStrobotium() + ";" + f.getStselenium() + ";" + f.getStespresso() + ";" + f.getStuiautomator()
-				+ ";");
-		sb.append(f.getSteasymock() + ";" + f.getStmock() + ";" + f.getStmockito() + ";" + f.getStmonkeyrunner() + ";"
-				+ f.getStappium() + ";");
-		sb.append(f.getSttestng() + ";" + f.getStjmeter() + ";" + f.getStselendroid() + ";");
-		// + f.getStspongycastle() + ";" + f.getStjersey() + ";" + f.getStroboguice());
+		sb.append(f.getStandroid() + delimiter + f.getStjunit() + delimiter + f.getStrobolectric() + delimiter
+				+ f.getSthamcrest() + delimiter + f.getStfest() + delimiter);
+		sb.append(f.getStrobotium() + delimiter + f.getStselenium() + delimiter + f.getStespresso() + delimiter
+				+ f.getStuiautomator() + delimiter);
+		sb.append(f.getSteasymock() + delimiter + f.getStmock() + delimiter + f.getStmockito() + delimiter
+				+ f.getStmonkeyrunner() + delimiter + f.getStappium() + delimiter);
+		sb.append(f.getSttestng() + delimiter + f.getStjmeter() + delimiter + f.getStselendroid() + delimiter);
+		// + f.getStspongycastle() + delimiter + f.getStjersey() + delimiter +
+		// f.getStroboguice());
 
 		// LAYOUT
-		sb.append(l.getStFrameLayout() + ";" + l.getStLinearLayout() + ";" + l.getStTableLayout() + ";"
-				+ l.getStGridLayout() + ";" + l.getStRelativeLayout() + ";");
+		sb.append(l.getStFrameLayout() + delimiter + l.getStLinearLayout() + delimiter + l.getStTableLayout()
+				+ delimiter + l.getStGridLayout() + delimiter + l.getStRelativeLayout() + delimiter);
 
 		// WIDGETS
-		sb.append(l.getStTextView() + ";" + l.getStButton() + ";" + l.getStRadioButton() + ";" + l.getStCheckBox() + ";"
-				+ l.getStSwitch() + ";");
-		sb.append(l.getStToggleButton() + ";" + l.getStImageView() + ";" + l.getStProgressBar() + ";" + l.getStSeekBar()
-				+ ";" + l.getStRatingBar() + ";" + l.getStSpinner() + ";" + l.getStWebView() + ";" + l.getStText()
-				+ ";");
+		sb.append(l.getStTextView() + delimiter + l.getStButton() + delimiter + l.getStRadioButton() + delimiter
+				+ l.getStCheckBox() + delimiter + l.getStSwitch() + delimiter);
+		sb.append(l.getStToggleButton() + delimiter + l.getStImageView() + delimiter + l.getStProgressBar() + delimiter
+				+ l.getStSeekBar() + delimiter + l.getStRatingBar() + delimiter + l.getStSpinner() + delimiter
+				+ l.getStWebView() + delimiter + l.getStText() + delimiter);
 
 		// TEXT FIELD
-		sb.append(l.getStEditText() + ";" + l.getStPersonName() + ";" + l.getStPassword() + ";" + l.getStPhone() + ";"
-				+ l.getStMultilineText() + ";" + l.getStNumber() + ";");
+		sb.append(l.getStEditText() + delimiter + l.getStPersonName() + delimiter + l.getStPassword() + delimiter
+				+ l.getStPhone() + delimiter + l.getStMultilineText() + delimiter + l.getStNumber() + delimiter);
 
 		// CONTAINERS
-		sb.append(l.getStRadioGroup() + ";" + l.getStListView() + ";" + l.getStGridView() + ";");
+		sb.append(l.getStRadioGroup() + delimiter + l.getStListView() + delimiter + l.getStGridView() + delimiter);
 
 		// EVENTOS GUI
-		sb.append(d.getOnswipetouchlistener() + ";" + d.getOndoubletaplistener() + ";" + d.getOnscalegesturelistener()
-				+ ";" + d.getShakelistener() + ";" + d.getOndraglistener() + ";" + d.getOnscrolllistener() + ";");
+		sb.append(d.getOnswipetouchlistener() + delimiter + d.getOndoubletaplistener() + delimiter
+				+ d.getOnscalegesturelistener() + delimiter + d.getShakelistener() + delimiter + d.getOndraglistener()
+				+ delimiter + d.getOnscrolllistener() + delimiter);
 
 		// ACCESSIBILITY XML ATTRIBUTES
 		for (String s_xml : listaDeAttAccXML)
 			if (!s_xml.equals("-"))
-				sb.append(count(app, "XML", s_xml) + ";");
+				sb.append(count(app, "XML", s_xml) + delimiter);
 
 		// ACCESSIBILITY JAVA ATTRIBUTES
 		for (String s_src : listaDeAttAcc.split(";"))
-			if (!s_src.equals("-"))
-				sb.append(count(app, "SRC", s_src) + ";");
+			if (!s_src.equals("-")) {
+				sb.append(count(app, "SRC", s_src) + delimiter);
 
+			}
 		int qtde_acc_total = 0, total_XML = 0, total_SRC = 0;
 		total_XML = countSource(app, "XML");
 		total_SRC = countSource(app, "SRC");
 		qtde_acc_total = total_XML + total_SRC;
 
 		// QUANTIDADE TOTAL DE FEATURES DE ACESSIBILIDADE
-		sb.append(qtde_acc_total + ";");
+		sb.append(qtde_acc_total + delimiter);
 
 		int qtde_act = 0;
 		try {
@@ -589,7 +604,7 @@ public class Redator {
 			qtde_act = nodes.getLength();
 
 			// QUANTIDADE DE TAG ACTIVITY
-			sb.append(qtde_act + ";");
+			sb.append(qtde_act + delimiter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -599,15 +614,15 @@ public class Redator {
 		if (qtde_act > 0)
 			score_normalized = (float) qtde_acc_total / qtde_act;
 
-		sb.append(score_normalized + ";");
+		sb.append(score_normalized + delimiter);
 
-		sb.append(total_XML + ";");
-		sb.append(total_SRC + ";");
+		sb.append(total_XML + delimiter);
+		sb.append(total_SRC + delimiter);
 
-		sb.append(countPrinciple(app, "Perceivable") + ";");
-		sb.append(countPrinciple(app, "Operable") + ";");
-		sb.append(countPrinciple(app, "Understandable") + ";");
-		sb.append(countPrinciple(app, "Robust") + ";");
+		sb.append(countPrinciple(app, "Perceivable") + delimiter);
+		sb.append(countPrinciple(app, "Operable") + delimiter);
+		sb.append(countPrinciple(app, "Understandable") + delimiter);
+		sb.append(countPrinciple(app, "Robust"));
 
 		// LAST COLUMN
 		sb.append("\n");
