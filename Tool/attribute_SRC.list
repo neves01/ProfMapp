@@ -7,14 +7,13 @@ isEnabled
 removeCaptioningChangeListener
 setScreenOrientation
 setInputType
-setKeyListener
+-
 -
 setTransformationMethod
 -
 -
 setAutoText
 setEditable
-setCursorVisible
 setBackgroundColor
 setTextColor
 setAutoSizeTextTypeWithDefaults
@@ -52,6 +51,5 @@ sendAccessibilityEvent
 sendAccessibilityEventUnchecked
 dispatchPopulateAccessibilityEvent
 onPopulateAccessibilityEvent
-onInitializeAccessibilityNodeInfo
 onRequestSendAccessibilityEvent
 onBindViewHolder

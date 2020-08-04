@@ -82,7 +82,8 @@ public class Analisador extends VoidVisitorAdapter {
 		int i = 0;
 		for (String stSensor : listaMetodos.toString().split(";")) {
 			retorno = uti.buscaPalavra(cuClasse.toString(), stSensor);
-			if (!retorno.equals("0")) {
+
+			if (!retorno.equals("0") && !stSensor.equals("setKeyListener")) {
 				sensoresEncontrados += "\n- " + stSensor;
 				Widget w = new Widget();
 				w.setId("-1");
@@ -91,7 +92,6 @@ public class Analisador extends VoidVisitorAdapter {
 
 				Accessibility acc = new Accessibility(stSensor);
 				acc.setPrinciple(listaDePrincipios.get(i));
-				//System.out.println("\tmetodo: " + stSensor + " principio: " + acc.getPrinciple());
 				w.getAccessibility().add(acc);
 				a.getElements().add(w);
 			}

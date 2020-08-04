@@ -1,6 +1,8 @@
 package br.com.processador;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,8 +13,14 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -280,7 +288,7 @@ public class Redator {
 
 		// PERMISSIONS
 		sb.append("getNetworkState" + delimiter);
-		sb.append("getNetworkState" + delimiter);
+		//sb.append("getNetworkState" + delimiter);
 		sb.append("getBluetooth" + delimiter);
 		sb.append("getBluetoothAdmin" + delimiter);
 		sb.append("getInternet" + delimiter);
@@ -508,7 +516,7 @@ public class Redator {
 		sb.append(c.getIntPortrait() + delimiter + c.getIntLandscape() + delimiter);
 
 		// PERMISSIONS
-		sb.append(c.getNetworkState() + delimiter + c.getNetworkState() + delimiter + c.getBluetooth() + delimiter
+		sb.append(c.getNetworkState() + delimiter + c.getBluetooth() + delimiter
 				+ c.getBluetoothAdmin() + delimiter + c.getInternet() + delimiter + c.getChangeNetworkState()
 				+ delimiter + c.getChangeWifiState() + delimiter);
 
@@ -685,19 +693,103 @@ public class Redator {
 			sb.append(left + ": " + count(a, src, attribute) + "\n");
 	}
 
+	public static boolean writeLines(String filePath, List<String> lines) {
+
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+
+			for (String newLine : lines) {
+				bw.write(newLine);
+				bw.newLine();
+				bw.flush();
+			}
+
+			bw.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	public static List<String> feedList(String filePath) {
+		List<String> lines = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+			String line;
+			while ((line = br.readLine()) != null) {
+				lines.add(line);
+			}
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return lines;
+	}
+
 	public void accessibilityReport(List<App> apps_map, List<String> listaDeAttAccXML, String listaDeAttAcc) {
 		StringBuilder report = new StringBuilder();
+		List<String> listFile = new ArrayList<String>();
+		List<String> listXML = feedList("/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_XML.list");
+		List<String> listSRC = feedList("/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_SRC.list");
 		System.out.println(listaDeAttAcc);
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		for (App a : apps_map) {
 			report.append("------------------------------------------\n");
 			report.append("App: " + a.getPacka_name() + "\n");
-			for (String s : listaDeAttAccXML)
-				customAppend(report, "\tXML_" + s, a, "XML", s);
 
-			for (String s_src : listaDeAttAcc.split(";"))
+			for (String s : listaDeAttAccXML) {
+				if (map.get(s) == null)
+					map.put(s, (count(a, "XML", s) > 0) ? 1 : 0);
+				else
+					map.put(s, map.get(s) + ((count(a, "XML", s) > 0) ? 1 : 0));
+
+				customAppend(report, "\tXML_" + s, a, "XML", s);
+			}
+
+			for (String s_src : listaDeAttAcc.split(";")) {
+				if (map.get(s_src) == null)
+					map.put(s_src, (count(a, "s_src", s_src) > 0) ? 1 : 0);
+				else
+					map.put(s_src, map.get(s_src) + ((count(a, "SRC", s_src) > 0) ? 1 : 0));
+
 				customAppend(report, "\tSRC_" + s_src, a, "SRC", s_src);
+			}
+
+			int i = 0;
+			int achouSRC = 0;
+			for (i = 0; i < listXML.size(); i++) {
+				int achouXML = (count(a, "XML", listXML.get(i)) > 0) ? 1 : 0;
+				achouSRC = 0;
+				if (achouXML == 0)
+					achouSRC = (count(a, "SRC", listSRC.get(i)) > 0) ? 1 : 0;
+
+				String key = i + "";
+				if (map.get(key) == null)
+					map.put(key, achouXML + achouSRC);
+				else
+					map.put(key, map.get(key) + achouXML + achouSRC);
+				// listFile.add((achouXML + achouSRC) + "");
+			}
 
 		}
+
+		// List<String> listFile = new ArrayList<String>();
+		for (Entry<String, Integer> entry : map.entrySet()) {
+			listFile.add(entry.getKey() + " : " + entry.getValue());
+			System.out.println(entry.getKey() + " = " + entry.getValue());
+		}
+
+		writeLines("/home/henrique/Experiment/totalCodedUsed.log", listFile);
 		escrita(report, "accessibilityReport.log");
 		// System.out.println("Apps without accessibilities attributes: " +
 		// appWithoutAccessibilities);

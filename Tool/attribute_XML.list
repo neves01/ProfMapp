@@ -14,7 +14,6 @@ android:numeric
 android:digits
 android:autoText
 android:editable
-android:cursorVisible
 android:background
 android:textColor
 android:autoSizeTextType
@@ -37,10 +36,10 @@ android:accessibilityTraversalBefore
 android:accessibilityTraversalAfter
 android:accessibilityHeading
 android:cursorVisible
-android:minWidth
-android:minHeight
-android:screenReaderFocusable
-android:focusable
+androind:minWidth
+androind:minHeight
+androind:screenReaderFocusable
+androind:focusable
 android:hint
 android:labelFor
 -
@@ -48,3 +47,9 @@ android:labelFor
 android:accessibilityLiveRegion
 android:importantForAccessibility
 android:hapticFeedbackEnabled
+-
+-
+-
+-
+-
+-

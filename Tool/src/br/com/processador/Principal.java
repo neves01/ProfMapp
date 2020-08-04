@@ -146,7 +146,7 @@ public class Principal {
 
 		// TODO: DESCOMENTAR
 		redator.escrita(sbCSV, "Relatorio.csv");
-		//redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
+		// redator.escrita(sbRelatorioFinal, "Relatorio_Final.txt");
 		// redator.escrita(sbRelatorioDesafios, "RelatorioDesafios.csv");
 
 		redator.accessibilityReport(apps_map, listaDeAttAccXML, listaDeAttAcc);
