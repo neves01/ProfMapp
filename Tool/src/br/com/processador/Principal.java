@@ -78,8 +78,9 @@ public class Principal {
 		 * VARIAVEIS
 		 * ---------------------------------------------------------------------
 		 */ // filter-f-droid/SAST_Apps
-
-		String repositorio = "/home/henrique/Experiment/filter-f-droid/SAST_Apps";
+		
+		//String repositorio = "/home/henrique/Experiment/filter-f-droid/SAST_Apps";
+		String repositorio = "/home/henrique/Experiment/appsComEspresso";
 		String listaDeAttAcc = feedAccessibilityList(
 				"/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_SRC.list");
 		List<String> listaDeAttAccXML = feedList("/home/henrique/eclipse-workspace/ProfMapp/Tool/attribute_XML.list");
