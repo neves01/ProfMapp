@@ -31,3 +31,4 @@ author = "Davi Bernardo Silva and Marcelo Medeiros Eler and Vinicius H.S. Durell
 - Code elements of the native Android API that may be related to accessibility features, and mapped them to principles and success criteria of Web Content Accessibility Guidelines (WCAG).
 - Android API: 30.
 - WCAG: 2.1 version
+- File: Code elements x WCAG Principles.csv
