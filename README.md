@@ -1,4 +1,4 @@
-## ProfMapp: profile extractor of mobile apps
+## ProfMapp: profile extractor of mobile apps (Accessibility Extension)
 
 This tool aims to identify and quantify characteristics of mobile apps from a software testing perspective. 
 
@@ -19,11 +19,9 @@ author = "Davi Bernardo Silva and Marcelo Medeiros Eler and Vinicius H.S. Durell
 
 ## Description
 
-- Folder /ExperimentalData contains the raw data extracted from the MA663 sample. The list of 663 apps and their repository links can also be found in this folder.
+-
 
-- Folder /Tool contains the source code and binaries for the ProfMapp tool. Open it using the Eclipse IDE.
-
-Tool execution
+### Tool execution
 - Download file profmapp.jar from the /Tool folder.
 - Execute the following command: java -jar profmapp.jar
 - Inform the path for the projects' source codes.
