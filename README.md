@@ -25,3 +25,9 @@ author = "Davi Bernardo Silva and Marcelo Medeiros Eler and Vinicius H.S. Durell
 - Download file profmapp.jar from the /Tool folder.
 - Execute the following command: java -jar profmapp.jar
 - Inform the path for the projects' source codes.
+
+### Mapping of code elements x WCAG
+
+- Code elements of the native Android API that may be related to accessibility features, and mapped them to principles and success criteria of Web Content Accessibility Guidelines (WCAG).
+- Android API: 30.
+- WCAG: 2.1 version
