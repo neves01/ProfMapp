@@ -8,7 +8,6 @@ If you use this tool, we gently ask you to cite our publication:
 title = "On the Relation between Code Elements and Accessibility Issues in Android Apps",
 journal = "Information and Software Technology",
 year = "2020",
-issn = "0950-5849",
 doi = "https://doi.org/10.1145/3425174.3425209",
 author = "Silva, Henrique Neves and Endo, Andre Takeshi and Eler, Marcelo Medeiros and Durelli, Vergilio, Silvia Regina and Durelli, Vinicius H.S.",
 }
