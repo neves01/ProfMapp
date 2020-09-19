@@ -4,16 +4,13 @@ This tool aims to identify and quantify characteristics of mobile apps from a so
 
 If you use this tool, we gently ask you to cite our publication:
 ```
-@article{SilvaEDE2018,
-title = "Characterizing mobile apps from a source and test code viewpoint",
+@article{HNSilva2020,
+title = "On the Relation between Code Elements and Accessibility Issues in Android Apps",
 journal = "Information and Software Technology",
-volume = {101},
-pages = {32--50},
-year = "2018",
+year = "2020",
 issn = "0950-5849",
-doi = "https://doi.org/10.1016/j.infsof.2018.05.006",
-url = "https://www.sciencedirect.com/science/article/pii/S0950584918300788",
-author = "Davi Bernardo Silva and Marcelo Medeiros Eler and Vinicius H.S. Durelli and Andre Takeshi Endo",
+doi = "https://doi.org/10.1145/3425174.3425209",
+author = "Silva, Henrique Neves and Endo, Andre Takeshi and Eler, Marcelo Medeiros and Durelli, Vergilio, Silvia Regina and Durelli, Vinicius H.S.",
 }
 ```
 
