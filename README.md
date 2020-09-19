@@ -15,8 +15,6 @@ author = "Silva, Henrique Neves and Endo, Andre Takeshi and Eler, Marcelo Medeir
 
 ## Description
 
--
-
 ### Tool execution
 - Download file profmapp.jar from the /Tool folder.
 - Execute the following command: java -jar profmapp.jar
